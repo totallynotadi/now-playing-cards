@@ -1,5 +1,7 @@
 # spotify-github-now-playing
 
-a good looking card for your github readme which shows your currently playing song on spotify
+cool looking cards for your github readme which showing your currently playing song on spotify
+
+Here's a demo
 
 ![testing svg rendering in github markdown](card.svg)
