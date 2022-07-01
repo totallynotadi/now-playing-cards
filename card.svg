@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="300">
+    <style>
+        svg {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, sans-serif;
+            font-size: 14px;
+            line-height: 21px;
+        }
+
+        img {
+            border-radius: 8px;
+            box-shadow: 0px 4px 80px 20px rgba(0, 0, 0, 0.25);
+            /* box-shadow: 0px 4px 10px 6px rgba(0, 0, 0, 0.25); */
+        }
+
+        hr {
+            color: white;
+        }
+
+        .bar {
+            margin-top: 14px;
+            margin-bottom: 20px;
+            
+            display: block;
+            height: 2px;
+            background-color: rgba(188, 188, 188, 1);
+        }
+
+        .meter {
+            display: block;
+            height: 2px;
+            background-color: white;
+
+            animation: progressBar 60s linear;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes progressBar {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        .background {
+            width: calc(100%);
+            height: calc(100%);
+            fill: rgba(53, 71, 99, 1);
+            rx: 8px;
+            ry: 8px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            padding: 14px;
+            /* align-items: flex-start; */
+            /* justify-content: space-between; */
+        }
+
+        .details-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            /* background-color: aquamarine; */
+        }
+
+        .title {
+            color: white;
+            font-family: url('https://fonts.googleapis.com/css2?family=Inter');
+            font-size: 21.8px;
+            font-weight: 650;
+            letter-spacing: 0.4px;
+
+            /* background-color: black; */
+        }
+
+        .artist {
+            color: white;
+            margin-top: 4px;
+            font-family: url('https://fonts.googleapis.com/css2?family=Inter');
+            font-size: 11.8px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+
+
+            /* background-color: black; */
+        }
+
+        .subtitle {
+            color: white;
+            font-family: url('https://fonts.googleapis.com/css2?family=Inter');
+            font-size: 7.8px;
+            font-weight: 500;
+            line-height: 12px;
+            letter-spacing: 0.2px;
+
+            /* background-color: black; */
+        }
+
+    </style>
+    <g>
+        <rect class="background" />
+        <g>
+            <foreignObject width="200" height="300">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="container">
+                    <div><img src="https://i.scdn.co/image/ab67616d0000b2739a41515fce354244456ce52d" width="172" height="172" /></div>
+                    <div class="bar"><div class="meter"></div></div>
+                    <div class="details-column">
+                        <div class="title">Medusa</div>
+                        <div class="artist">Rhodes Rodosu</div>
+                        <div class="subtitle">Medusa • 2021</div>
+                    </div>
+                </div>
+            </foreignObject>
+        </g>
+    </g>
+</svg>
