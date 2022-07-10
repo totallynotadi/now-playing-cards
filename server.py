@@ -18,7 +18,8 @@ API_URL = '{}/{}'.format(BASE_URL, API_VERSION)
 
 SERVER_URL = 'https://127.0.0.1'
 PORT = 8080
-REDIRECT_URL = '{}:{}/callback/q'.format(SERVER_URL, PORT)
+# REDIRECT_URL = 'https://readme-now-playing/callback/q'
+REDIRECT_URL = 'https://localhost:8080/callback/q'
 SCOPES = 'user-read-playback-state user-read-currently-playing user-read-recently-played user-top-read'
 
 
@@ -37,7 +38,7 @@ def login():
     }
 
     auth_headers = '&'.join(['{}={}' .format(param, quote(val))
-                            for param, val in auth_headers.items()])
+                            for param, val in auth_headers.items()])    
     auth_url = "{}/?{}".format(AUTH_URL, auth_headers)
     print(auth_url)
     return flask.redirect(auth_url)
@@ -68,8 +69,7 @@ def callback():
     user_profile_endpoint = '{}/me'.format(API_URL)
     data = requests.get(user_profile_endpoint, headers=auth_header)
     data = json.loads(data.text)
-    print(data.keys())
-    return data.get('id')
+    return flask.render_template('success.html', page_result='Login Successful', user_id=data.get('id'))
 
 
 if __name__ == '__main__':
