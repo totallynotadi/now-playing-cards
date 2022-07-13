@@ -40,12 +40,14 @@ a {
 }
 
 .login-button {
+    height: 20px;
     background-color: #2A3E5B;
     color: white;
-    font-size: 20px;
+    font-size: 16px;
     font-family: 'Inter';
+    font-weight: 500;
+    letter-spacing: 0.1rem;
     line-height: 20px;
-    height: 20px;
     padding: var(--horizontal) var(--vertical) var(--horizontal) var(--vertical);
     border-radius: 40px;
     transition: all 0.25s ease;
