@@ -1,14 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="272" height="396">
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="320">
     <style>
         svg {
             font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, sans-serif;
             font-size: 14px;
             line-height: 21px;
+            animation: fade-in ease-in-out 2s;
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0%;
+            }
+
+            to {
+                opacity: 100%;
+            }
         }
 
         img {
-            height: 100%;
             width: 100%;
+            height: 100%;
             border-radius: 8px;
             box-shadow: 0px 4px 80px 20px rgba(0, 0, 0, 0.25);
             /* box-shadow: 0px 4px 10px 6px rgba(0, 0, 0, 0.25); */
@@ -19,8 +30,8 @@
         }
 
         .bar {
-            margin-top: 24px;
-            margin-bottom: 24px;
+            margin-top: 16px;
+            margin-bottom: 16px;
 
             display: block;
             height: 2px;
@@ -28,6 +39,7 @@
         }
 
         .meter {
+            display: block;
             height: 2px;
             background-color: white;
 
@@ -36,18 +48,13 @@
         }
 
         @keyframes progressBar {
-            from {
-                width: 0%;
-            }
-
-            to {
-                width: 100%;
-            }
+            from {width: 0%;}
+            to {width: 100%;}
         }
 
         .background {
-            width: calc(100%);
-            height: calc(100%);
+            width: 100%;
+            height: 100%;
             fill: rgba(53, 71, 99, 1);
             rx: 8px;
             ry: 8px;
@@ -56,7 +63,7 @@
         .container {
             display: flex;
             flex-direction: column;
-            padding: 18px;
+            padding: 14px;
         }
 
         .details-column {
@@ -76,37 +83,36 @@
             color: white;
             font-family: url('https://fonts.googleapis.com/css2?family=Inter');
             font-size: {{ title_font_size }}px;
-            font-weight: 700;
+            font-weight: 650;
             letter-spacing: 0.4px;
             white-space: nowrap;
-            animation: {{ title_animation }};
-            /* animation: text-scroll infinite linear 20s; */
+            animation: {{ title_animation }}
+            /* animation: text-scroll infinite ease-in-out 20s; */
         }
 
         .artist {
             color: white;
             font-family: url('https://fonts.googleapis.com/css2?family=Inter');
             font-size: {{ artist_font_size }}px;
-            font-weight: 600;
-            letter-spacing: 0.2px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
             white-space: nowrap;
             animation: {{ artist_animation }};
-            /* animation: text-scroll infinite linear 20s; */
-            margin-top: 10px;
-
+            margin-top: 4px;
+            /* animation: text-scroll infinite ease-in-out 20s; */
         }
 
         .subtitle {
             color: white;
             font-family: url('https://fonts.googleapis.com/css2?family=Inter');
-
             font-size: {{ sub_font_size }}px;
             font-weight: 500;
+            line-height: 12px;
             letter-spacing: 0.2px;
             white-space: nowrap;
             animation: {{ sub_animation }};
-            /* animation: text-scroll infinite linear 20s; */
             margin-top: 4px;
+            /* animation: text-scroll infinite ease-in-out 20s; */
         }
 
         @keyframes text-scroll {
@@ -114,7 +120,7 @@
                 transform: translateX(0);
             }
 
-            30% {
+            35% {
                 transform: translateX(0);
             }
 
@@ -137,19 +143,19 @@
                 transform: translateX(0);
             }
         }
+
     </style>
     <g>
         <rect class="background" />
         <g>
-            <foreignObject width="272" height="396">
+            <foreignObject width="220" height="320">
                 <div xmlns="http://www.w3.org/1999/xhtml" class="container">
-                    <div><img src="data:image/png;base64, {{ image }}" /></div>
+                    <div><img src="data:image/png;base64, {{ image }}"/></div>
                     <div class="bar">
                         <div class="meter"></div>
                     </div>
                     <div class="details-column">
-                        <div class="title">{{ title }}<div class="fader-right"></div>
-                        </div>
+                        <div class="title">{{ title }}<div class="fader-right"></div></div>
                         <div class="artist">{{ artist }}</div>
                         <div class="subtitle">{{ subtitle }}</div>
                     </div>

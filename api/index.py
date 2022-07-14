@@ -222,7 +222,7 @@ def build_small_card(track, template):
     font_size = "12"
     if len(album['name']) <= 13:
         subtitle = album['name'] + ' • ' + album['release_date'].split('-')[0]
-    if len(album['name']) <= 20:
+    elif len(album['name']) <= 20:
         subtitle = album['name']
     else:
         animation = "text-scroll infinite linear 20s"
