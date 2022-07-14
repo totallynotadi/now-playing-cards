@@ -9,6 +9,8 @@ import flask
 import requests
 
 from utils import load_users
+from builders import now_playing
+
 
 app = flask.Flask(__name__)
 users = load_users()
@@ -114,126 +116,8 @@ def token_refresh(refresh_token: str):
 
     return response
 
-
-def build_medium_card(track, output):
-    image = str(base64.b64encode(requests.get(
-        track['album']['images'][1]['url']).content))[2: -1]
-    output = re.sub(r"{{ image }}", image, output)
-
-    duration = str(int(track['duration_ms'] / 1000))
-    output = re.sub(r"{{ duration }}", duration, output)
-
-    animation = "unset"
-    if len(track['name']) <= 20:
-        font_size = "24"
-    else:
-        animation = "text-scroll infinite linear 20s"
-        font_size = "22"
-    output = re.sub(r"{{ title_animation }}", animation, output)
-    output = re.sub(r"{{ title_font_size }}", font_size, output)
-    output = re.sub(r"{{ title }}", track['name'], output)
-
-    animation = "unset"
-    artists = ' & '.join([artist['name'] for artist in track['artists']])
-    if len(artists) <= 29:
-        font_size = "16"
-    else:
-        animation = "text-scroll infinite linear 20s"
-        font_size = "12"
-    ouptut = re.sub(r"{{ artist_animation }}", animation, output)
-    output = re.sub(r"{{ artist_font_size }}", font_size, output)
-    output = re.sub(r"{{ artist }}", artists, output)
-
-    animation = "unset"
-    album = track['album']
-    if len(album['name']) <= 28:
-        subtitle = album['name'] + ' • ' + album['release_date'].split('-')[0]
-        font_size = "14"
-    elif len(album['name']) <= 36:
-        subtitle = album['name']
-        font_size = "14"
-    elif len(album['name']) <= 33:
-        font_size = "12"
-        subtitle = album['name'] + ' • ' + album['release_date'].split('-')[0]
-    elif len(album['name']) <= 40:
-        font_size = "12"
-        subtitle = album['name']
-    else:
-        font_size = "12"
-        subtitle = album['name']
-        animation = "text-scroll infinite linear 20s"
-    output = re.sub(r"{{ sub_animation }}", animation, output)
-    output = re.sub(r"{{ sub_font_size }}", font_size, output)
-    output = re.sub(r"{{ subtitle }}", subtitle, output)
-
-    return output
-
-
-def build_large_card(track, output):
-    image = str(base64.b64encode(requests.get(
-        track['album']['images'][1]['url']).content))[2: -1]
-    output = re.sub(r"{{ image }}", image, output)
-
-    duration = str(int(track['duration_ms'] / 1000))
-    output = re.sub(r"{{ duration }}", duration, output)
-
-    output = re.sub(r"{{ title }}", track['name'], output)
-
-    artists = ' & '.join([artist['name'] for artist in track['artists']])
-    output = re.sub(r"{{ artist }}", artists, output)
-
-    album = track['album']
-    subtitle = album['name'] + ' • ' + album['release_date'].split('-')[0]
-    output = re.sub(r"{{ subtitle }}", subtitle, output)
-
-    return output
-
-def build_small_card(track, template):
-    image = str(base64.b64encode(requests.get(
-        track['album']['images'][1]['url']).content))[2: -1]
-    template = re.sub(r"{{ image }}", image, template)
-
-    duration = str(int(track['duration_ms'] / 1000))
-    template = re.sub(r"{{ duration }}", duration, template)
-
-    animation = "unset"
-    if len(track['name']) <= 16:
-        font_size = "18"
-    elif len(track['name']) <= 18:
-        font_size = "16"
-    else:
-        font_size = "16"
-        animation = "text-scroll infinite linear 20s"
-    template = re.sub(r"{{ title_font_size }}", font_size, template)
-    template = re.sub(r"{{ title_animation }}", animation, template)
-    template = re.sub(r"{{ title }}", track['name'], template)
-
-    animation = "unset"
-    artists = ' & '.join([artist['name'] for artist in track['artists']])
-    font_size = "14"
-    if len(artists) > 23:
-        animation = "text-scroll infinite linear 20s"
-    template = re.sub(r"{{ artist_font_size }}", font_size, template)
-    template = re.sub(r"{{ artist_animation }}", animation, template)
-    template = re.sub(r"{{ artist }}", artists, template)
-
-    animation = "unset"
-    album = track['album']
-    font_size = "12"
-    if len(album['name']) <= 13:
-        subtitle = album['name'] + ' • ' + album['release_date'].split('-')[0]
-    elif len(album['name']) <= 20:
-        subtitle = album['name']
-    else:
-        animation = "text-scroll infinite linear 20s"
-    template = re.sub(r"{{ sub_font_size }}", font_size, template)
-    template = re.sub(r"{{ sub_animation }}", animation, template)
-    template = re.sub(r"{{ subtitle }}", subtitle, template)
-
-    return template
-
 @app.route('/now-playing/q')
-def now_playing():
+def now_playing_endpoint():
     params = flask.request.args
 
     size = params.get('size', 'med')
@@ -272,11 +156,11 @@ def now_playing():
         print(f":::track-keys: {track.keys()}")
 
     if size == 'large':
-        return build_large_card(track, svg_template)
+        return now_playing.build_large_card(track, svg_template)
     elif size == 'med':
-        return build_medium_card(track, svg_template)
+        return now_playing.build_medium_card(track, svg_template)
     else:
-        return build_small_card(track, svg_template)
+        return now_playing.build_small_card(track, svg_template)
 
 
 @app.route('/users')
