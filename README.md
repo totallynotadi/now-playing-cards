@@ -6,4 +6,4 @@ Here's a demo
 
 ![testing svg rendering in github markdown](docs/card_large.svg)
 ![testing svg rendering in github markdown](docs/card_med.svg)
-![testing svg rendering in github markdown](docs/card_copy.svg)
+![testing svg rendering in github markdown](docs/card_small.svg)
