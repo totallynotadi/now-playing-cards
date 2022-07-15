@@ -1,6 +1,6 @@
 import base64
 import json
-import re
+from os import access
 import time
 from typing import Dict
 from urllib.parse import quote
@@ -116,51 +116,73 @@ def token_refresh(refresh_token: str):
 
     return response
 
-@app.route('/now-playing/q')
-def now_playing_endpoint():
-    params = flask.request.args
 
-    size = params.get('size', 'med')
-    if size not in ['default', 'small', 'med', 'large']:
-        size = 'med'
-
-    user_id = params.get('uid')
-    if user_id not in users:
-        return 'please login before usage'
+def check_token_expiry(user_id):
     user_tokens = users.get(user_id)
-
     if int(time.time()) >= user_tokens['expires_at'] - 60:
         user_tokens = token_refresh(user_tokens['refresh_token'])
         user_tokens['expires_at'] = int(
             time.time()) + user_tokens['expires_in']
         users[user_id] = user_tokens
 
-    access_token = user_tokens['access_token']
+
+def get_now_playing(access_token):
     auth_header = {"Authorization": "Bearer {}".format(access_token)}
     now_playing_endpoint = '{}/me/player/currently-playing'.format(API_URL)
 
-    data = requests.get(now_playing_endpoint, headers=auth_header).json()
+    data = requests.get(now_playing_endpoint, headers=auth_header)
+    if data.status_code == requests.codes['no_content']:
+        track = get_recently_played(access_token)
+        return track
+    else:
+        data = data.json()
+        track = data['item']
+    return track
+
+
+def get_recently_played(access_token):
+    auth_header = {"Authorization": "Bearer {}".format(access_token)}
+    recently_played_endpoint = '{}/me/player/recently-played'.format(API_URL)
+    data = requests.get(recently_played_endpoint, headers=auth_header).json()
+    # actual format of data['items'] - dict_keys(['track', 'played_at', 'context'])
+    track = data['items'][0]['track']
+    return track
+
+
+@app.route('/now-playing/q')
+def now_playing_endpoint():
+    params = flask.request.args
+
+    user_id = params.get('uid')
+    if user_id not in users:
+        return 'please login before usage'
+
+    check_token_expiry(user_id)
+
+    user_tokens = users.get(user_id)
+    access_token = user_tokens['access_token']
+
+    track = get_now_playing(access_token)
+    if track is None:
+        print(f":::getting recently played tracks")
+        track = get_recently_played(access_token)
+        print(f":::track-keys: {track.keys()}")
+
+    size = params.get('size', 'med')
+    if size not in ['default', 'small', 'med', 'large']:
+        size = 'med'
 
     with open(f'cards/card_{size}.svg', 'r', encoding='utf-8') as file:
         svg_template = str(file.read())
 
-    track = data['item']
-    if track is None:
-        print(f":::getting recently played tracks")
-        recently_played_endpoint = '{}/me/player/recently-played'.format(
-            API_URL)
-        data = requests.get(recently_played_endpoint,
-                            headers=auth_header).json()
-        # actual format of data['items'] - dict_keys(['track', 'played_at', 'context'])
-        track = data['items'][0]['track']
-        print(f":::track-keys: {track.keys()}")
+    text_theme = params.get('theme', 'light')
+    background_theme = params.get('background', 'light')
 
-    if size == 'large':
-        return now_playing.build_large_card(track, svg_template)
-    elif size == 'med':
-        return now_playing.build_medium_card(track, svg_template)
-    else:
-        return now_playing.build_small_card(track, svg_template)
+    card = now_playing.build(track, svg_template, background_theme, text_theme, size)
+
+    response = flask.Response(card)
+    response.headers["Cache-Control"] = "s-maxage=1"
+    return response
 
 
 @app.route('/users')

@@ -35,12 +35,12 @@
 
             display: block;
             height: 2px;
-            background-color: rgba(188, 188, 188, 1);
+            background-color: {{ bar_color }};
         }
 
         .meter {
             height: 2px;
-            background-color: white;
+            background-color: {{ text_color }};
 
             animation: progressBar {{ duration }}s linear;
             animation-fill-mode: forwards;
@@ -57,9 +57,9 @@
         }
 
         .background {
-            width: calc(100%);
-            height: calc(100%);
-            fill: rgba(53, 71, 99, 1);
+            width: 100%;
+            height: 100%;
+            fill: {{ background }};
             rx: 8px;
             ry: 8px;
         }
@@ -76,15 +76,8 @@
             justify-content: space-between;
         }
 
-        .fader-right {
-            right: 0;
-            background: linear-gradient(to right,
-                    rgba(188, 188, 188, 1),
-                    rgba(188, 188, 188, 0));
-        }
-
         .title {
-            color: white;
+            color: {{ text_color }};
             font-family: url('https://fonts.googleapis.com/css2?family=Inter');
             font-size: {{ title_font_size }}px;
             font-weight: 700;
@@ -95,7 +88,7 @@
         }
 
         .artist {
-            color: white;
+            color: {{ text_color }};
             font-family: url('https://fonts.googleapis.com/css2?family=Inter');
             font-size: {{ artist_font_size }}px;
             font-weight: 600;
@@ -108,7 +101,7 @@
         }
 
         .subtitle {
-            color: white;
+            color: {{ text_color }};
             font-family: url('https://fonts.googleapis.com/css2?family=Inter');
 
             font-size: {{ sub_font_size }}px;
@@ -122,30 +115,16 @@
 
         @keyframes text-scroll {
             0% {
-                transform: translateX(0);
+                transform: translateX(130%);
             }
-
-            30% {
-                transform: translateX(0);
+            33% {
+                transform: translateX(0%);
             }
-
-            80% {
-                color: white;
-                transform: translateX(-138%);
+            66% {
+                transform: translateX(0%);
             }
-
-            81% {
-                color: transparent;
-                transform: translateX(-138%);
-            }
-
-            82% {
-                transform: translateX(138%);
-            }
-
             100% {
-                color: white;
-                transform: translateX(0);
+                transform: translateX(-130%);
             }
         }
     </style>
@@ -159,8 +138,7 @@
                         <div class="meter"></div>
                     </div>
                     <div class="details-column">
-                        <div class="title">{{ title }}<div class="fader-right"></div>
-                        </div>
+                        <div class="title">{{ title }}</div>
                         <div class="artist">{{ artist }}</div>
                         <div class="subtitle">{{ subtitle }}</div>
                     </div>

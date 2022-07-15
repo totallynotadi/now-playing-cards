@@ -118,30 +118,16 @@
 
         @keyframes text-scroll {
             0% {
-                transform: translateX(0);
+                transform: translateX(130%);
             }
-
-            35% {
-                transform: translateX(0);
+            33% {
+                transform: translateX(0%);
             }
-
-            80% {
-                color: white;
-                transform: translateX(-138%);
+            66% {
+                transform: translateX(0%);
             }
-
-            81% {
-                color: transparent;
-                transform: translateX(-138%);
-            }
-
-            82% {
-                transform: translateX(138%);
-            }
-
             100% {
-                color: white;
-                transform: translateX(0);
+                transform: translateX(-130%);
             }
         }
 
