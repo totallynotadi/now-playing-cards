@@ -153,6 +153,12 @@ def get_recently_played(access_token):
 def now_playing_endpoint():
     params = flask.request.args
 
+    if params.get('test') == 'true':
+        with open('cards/test-re.svg', 'r', encoding='utf-8') as file:
+            template = file.read()
+        response = flask.Response(template, mimetype='image/svg+xml')
+        return response
+
     user_id = params.get('uid')
     if user_id not in users:
         return 'please login before usage'
@@ -180,7 +186,7 @@ def now_playing_endpoint():
 
     card = now_playing.build(track, svg_template, background_theme, text_theme, size)
 
-    response = flask.Response(card)
+    response = flask.Response(card, mimetype='image/svg+xml')
     response.headers["Cache-Control"] = "s-maxage=1"
     return response
 
