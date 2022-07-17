@@ -96,7 +96,7 @@ def callback():
             'expires_in': expires_in,
             'expires_at': expires_at
         }
-        save_users()
+        # save_users()
 
     return flask.render_template('success.html', page_result='Login Successful', user_id=data.get('id'))
 
@@ -201,5 +201,5 @@ def get_users():
 
 
 if __name__ == '__main__':
-    REDIRECT_URL = 'https://localhost:8080/callback/q'
+    # REDIRECT_URL = 'https://localhost:8080/callback/q'
     app.run(debug=True, host='localhost', port=PORT, ssl_context='adhoc')
