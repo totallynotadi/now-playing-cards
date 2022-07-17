@@ -131,3 +131,4 @@ dmypy.json
 tests/
 card.svg
 users.json
+.vercel
