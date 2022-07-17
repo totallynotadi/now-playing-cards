@@ -188,7 +188,7 @@ def now_playing_endpoint():
     background_theme = params.get('background', 'light')
 
     card = now_playing.build(track, svg_template, background_theme, text_theme, size)
-    card.replace("&", "&amp;")
+    card = card.replace("&", "&amp;")
 
     response = flask.Response(card, mimetype='image/svg+xml')
     response.headers["Cache-Control"] = "s-maxage=1"
