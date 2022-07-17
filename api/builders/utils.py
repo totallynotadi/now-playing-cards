@@ -1,7 +1,7 @@
 from PIL import ImageFont
 
 
-SIZES = {'title': 'builders/fonts/inter-700.ttf', 'artist': 'builders/fonts/inter-600.ttf', 'subtitle': 'builders/fonts/inter-500.ttf'}
+SIZES = {'title': 'api/builders/fonts/inter-500.ttf', 'artist': 'api/builders/fonts/inter-600.ttf', 'subtitle': 'api/builders/fonts/inter-500.ttf'}
 
 def get_text_len(text, font_size, font_name):
     font = ImageFont.truetype(SIZES[font_name], font_size)

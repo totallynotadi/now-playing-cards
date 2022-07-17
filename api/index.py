@@ -7,10 +7,13 @@ from urllib.parse import quote
 
 import flask
 import requests
-
-from utils import load_users
-from builders import now_playing
-
+try:
+    from .utils import load_users
+    from .builders import now_playing
+except ImportError:
+    from utils import load_users
+    from builders import now_playing
+     
 
 app = flask.Flask(__name__)
 users = load_users()
@@ -27,8 +30,8 @@ API_URL = '{}/{}'.format(BASE_URL, API_VERSION)
 
 SERVER_URL = 'https://127.0.0.1'
 PORT = 8080
-# REDIRECT_URL = 'https://readme-now-playing/callback/q'
-REDIRECT_URL = 'https://localhost:8080/callback/q'
+REDIRECT_URL = 'https://readme-now-playing.vercel.app/callback/q'
+# REDIRECT_URL = 'https://localhost:8080/callback/q'
 SCOPES = 'user-read-playback-state user-read-currently-playing user-read-recently-played user-top-read'
 
 
@@ -178,17 +181,18 @@ def now_playing_endpoint():
     if size not in ['default', 'small', 'med', 'large']:
         size = 'med'
 
-    with open(f'cards/card_{size}.svg', 'r', encoding='utf-8') as file:
+    with open(f'api/cards/card_{size}.svg', 'r', encoding='utf-8') as file:
         svg_template = str(file.read())
 
     text_theme = params.get('theme', 'light')
     background_theme = params.get('background', 'light')
 
     card = now_playing.build(track, svg_template, background_theme, text_theme, size)
+    card.replace("&", "&amp;")
 
     response = flask.Response(card, mimetype='image/svg+xml')
     response.headers["Cache-Control"] = "s-maxage=1"
-    return response
+    return response 
 
 
 @app.route('/users')
@@ -197,4 +201,5 @@ def get_users():
 
 
 if __name__ == '__main__':
+    REDIRECT_URL = 'https://localhost:8080/callback/q'
     app.run(debug=True, host='localhost', port=PORT, ssl_context='adhoc')

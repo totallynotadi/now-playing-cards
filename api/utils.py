@@ -3,11 +3,12 @@ import json
 import math
 import os
 from typing import Dict
-import PIL.Image
 
+import PIL.Image
 import requests
-import colorgram
-import sty
+
+# import colorgram
+# import sty
 
 
 def load_users():
