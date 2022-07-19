@@ -129,6 +129,4 @@ dmypy.json
 .pyre/
 
 tests/
-card.svg
-users.json
 .vercel

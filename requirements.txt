@@ -1,3 +1,7 @@
 flask
 requests
+firebase_admin
+python-dotenv
 pillow
+colorgram
+sty
