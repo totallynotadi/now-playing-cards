@@ -1,7 +1,11 @@
 <svg width="220" height="320" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@700');
+
         svg {
-            font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, sans-serif;
+            font-family: Inter, -apple-system, sans-serif;
             font-size: 14px;
             line-height: 21px;
             animation: fade-in ease-in-out 2s;
@@ -81,7 +85,7 @@
 
         .title {
             color: {{ text_color }};
-            font-family: url('https://fonts.googleapis.com/css2?family=Inter');
+            font-family: Inter, sans-serif;
             font-size: {{ title_font_size }}px;
             font-weight: 700;
             letter-spacing: 0.4px;
@@ -92,7 +96,7 @@
 
         .artist {
             color: {{ text_color }};
-            font-family: url('https://fonts.googleapis.com/css2?family=Inter');
+            font-family: Inter, sans-serif;
             font-size: {{ artist_font_size }}px;
             font-weight: 500;
             letter-spacing: 0.4px;
@@ -104,7 +108,7 @@
 
         .subtitle {
             color: {{ text_color }};
-            font-family: url('https://fonts.googleapis.com/css2?family=Inter');
+            font-family: Inter, sans-serif;
             font-size: {{ sub_font_size }}px;
             font-weight: 500;
             line-height: 12px;
