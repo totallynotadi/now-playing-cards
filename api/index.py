@@ -30,8 +30,8 @@ API_URL = '{}/{}'.format(BASE_URL, API_VERSION)
 CLIENT_ID = os.getenv('CLIENT_ID')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET')
 
-# REDIRECT_URL = os.getenv('REDIRECT_URL')
-REDIRECT_URL = 'https://localhost:5000/callback/q'
+REDIRECT_URL = os.getenv('REDIRECT_URL')
+# REDIRECT_URL = 'https://localhost:5000/callback/q'
 
 SCOPES = os.getenv('SCOPES')
 
