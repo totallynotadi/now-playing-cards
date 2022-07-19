@@ -1,28 +1,18 @@
 import io
-import json
 import math
-import os
 from typing import Dict
 
 import PIL.Image
 import requests
 
-# import colorgram
+import colorgram
 # import sty
 
-
-def load_users():
-    if os.path.exists('users.json'):
-        with open('users.json', 'r', encoding='utf-8') as file:
-            return json.load(file)
-    else:
-        return {}
 
 def is_light(rgb, threshold=170):
     # https://stackoverflow.com/a/58270890
     [r, g, b] = rgb
     hsp = math.sqrt(0.299 * (r * r) + 0.587 * (g * g) + 0.114 * (b * b))
-    print(int(hsp))
     return hsp > threshold
 
 
