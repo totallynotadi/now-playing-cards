@@ -67,6 +67,21 @@ def login():
     return flask.redirect(auth_url)
 
 
+def parse_tokens(data):
+    access_token = data['access_token']
+    refresh_token = data['refresh_token']
+    token_type = data['token_type']
+    expires_in = data['expires_in']
+    expires_at = int(time.time() + expires_in)
+    tokens = {
+        'access_token': access_token,
+        'refresh_token': refresh_token,
+        'expires_in': expires_in,
+        'expires_at': expires_at
+    }
+    return tokens
+
+
 @app.route('/callback/q')
 def callback():
     auth_token = flask.request.args['code']
@@ -82,19 +97,9 @@ def callback():
 
     response_data = json.loads(post_request.text)
 
-    access_token = response_data['access_token']
-    refresh_token = response_data['refresh_token']
-    token_type = response_data['token_type']
-    expires_in = response_data['expires_in']
-    expires_at = int(time.time() + expires_in)
-    tokens = {
-        'access_token': access_token,
-        'refresh_token': refresh_token,
-        'expires_in': expires_in,
-        'expires_at': expires_at
-    }
+    tokens = parse_tokens(response_data)
 
-    data = get_user_info(access_token)
+    data = get_user_info(tokens['access_token'])
 
     if not data['id'] in users:
         users[data['id']] = tokens
@@ -121,6 +126,8 @@ def token_refresh(refresh_token: str):
         headers=headers
     ).json()
 
+    print(':::: ', response)
+
     return response
 
 
@@ -132,9 +139,7 @@ def save_tokens(uid, user_tokens):
 def check_token_expiry(uid, user_tokens):
     if int(time.time()) >= user_tokens['expires_at'] - 60:
         user_tokens = token_refresh(user_tokens['refresh_token'])
-        user_tokens['expires_at'] = int(
-            time.time()
-        ) + user_tokens['expires_in']
+        user_tokens = parse_tokens(user_tokens)
         threading._start_new_thread(save_tokens, (uid, user_tokens, ))
     users[uid] = user_tokens
     return user_tokens
@@ -220,7 +225,7 @@ def now_playing_endpoint():
     card = card.replace("&", "&amp;")
 
     response = flask.Response(card, mimetype='image/svg+xml')
-    response.headers["Cache-Control"] = "s-maxage=1"
+    response.headers["Cache-Control"] = "s-maxage=200"
     return response
 
 
