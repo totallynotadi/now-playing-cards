@@ -53,7 +53,6 @@
             margin-bottom: 16px;
 
             display: flex;
-            jsutify-content: center;
             align-items: center;
 
             border-radius:40px;

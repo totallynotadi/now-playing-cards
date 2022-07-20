@@ -51,14 +51,18 @@
             margin-top: 18px;
             margin-bottom: 24px;
 
-            display: block;
+            display: flex;
+            align-items: center;
+
+            border-radius: 40px;
             height: 2px;
             background-color: rgba(188, 188, 188, 1);
         }
 
         .meter {
-            height: 2px;
+            height: 4px;
             background-color: white;
+            border-radius:40px;
 
             animation: progressBar 60s linear;
             animation-fill-mode: forwards;

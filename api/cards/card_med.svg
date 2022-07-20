@@ -52,8 +52,9 @@
             margin-bottom: 24px;
 
             display: flex;
-            justify-content: center;
             align-items: center;
+
+            border-radius:40px;
             height: 2px;
             background-color: {{ bar_color }};
         }
