@@ -52,14 +52,19 @@
             margin-top: 16px;
             margin-bottom: 16px;
 
-            display: block;
+            display: flex;
+            jsutify-content: center;
+            align-items: center;
+
+            border-radius:40px;
             height: 2px;
             background-color: rgba(188, 188, 188, 1);
         }
 
         .meter {
-            display: block;
-            height: 2px;
+            height: 4px;
+            border-radius:40px;
+
             background-color: white;
             animation: progress-bar 60s linear;
             animation-fill-mode: forwards;

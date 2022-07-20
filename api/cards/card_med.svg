@@ -51,13 +51,16 @@
             margin-top: 24px;
             margin-bottom: 24px;
 
-            display: block;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             height: 2px;
             background-color: {{ bar_color }};
         }
 
         .meter {
-            height: 2px;
+            height: 4px;
+            border-radius:40px;
             background-color: {{ text_color }};
 
             animation: progressBar {{ duration }}s linear;

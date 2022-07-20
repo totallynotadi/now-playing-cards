@@ -161,10 +161,16 @@
                         <div class="meter"></div>
                     </div>
                     <div class="details-column">
-                        <div class="title">A Way Home</div>
+                        <div class="title">
+                            A Way Home
+                        </div>
                         <!-- <div class="artist">ＭＥＭＯＲＥＸ - ＭＥＭＯＲＥ</div> -->
-                        <div class="artist">M E M O R E X - M E M O R E X</div>
-                        <div class="subtitle">Stratford Ct. | Secret Selection #31</div>
+                        <div class="artist">
+                            M E M O R E X - M E M O R I E S
+                        </div>
+                        <div class="subtitle">
+                            Stratford Ct. | Secret Selection #31
+                        </div>
                     </div>
                 </div>
             </foreignObject>
