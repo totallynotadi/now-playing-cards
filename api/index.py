@@ -139,8 +139,9 @@ def save_tokens(uid, user_tokens):
 
 def check_token_expiry(uid, user_tokens):
     if int(time.time()) >= user_tokens['expires_at'] - 60:
-        user_tokens = token_refresh(user_tokens['refresh_token'])
-        user_tokens = parse_tokens(user_tokens, user_tokens['refresh_token'])
+        refresh_token = user_tokens['refresh_token']
+        user_tokens = token_refresh(refresh_token)
+        user_tokens = parse_tokens(user_tokens, refresh_token)
         threading._start_new_thread(save_tokens, (uid, user_tokens, ))
     users[uid] = user_tokens
     return user_tokens
