@@ -61,18 +61,19 @@ def login():
         "client_id": CLIENT_ID
     }
 
-    auth_headers = '&'.join(['{}={}'.format(param, quote(val)) for param, val in auth_headers.items()])
+    auth_headers = '&'.join(['{}={}'.format(param, quote(val))
+                            for param, val in auth_headers.items()])
     auth_url = "{}/?{}".format(AUTH_URL, auth_headers)
     print(auth_url)
     return flask.redirect(auth_url)
 
 
-def parse_tokens(data):
+def parse_tokens(data, refresh_token=None):
     access_token = data['access_token']
-    refresh_token = data['refresh_token']
     token_type = data['token_type']
     expires_in = data['expires_in']
     expires_at = int(time.time() + expires_in)
+    refresh_token = refresh_token if refresh_token is not None else data['refresh_token']
     tokens = {
         'access_token': access_token,
         'refresh_token': refresh_token,
@@ -103,7 +104,7 @@ def callback():
 
     if not data['id'] in users:
         users[data['id']] = tokens
-    
+
     save_tokens(data['id'], tokens)
 
     return flask.render_template('success.html', page_result='Login Successful', user_id=data.get('id'))
@@ -139,7 +140,7 @@ def save_tokens(uid, user_tokens):
 def check_token_expiry(uid, user_tokens):
     if int(time.time()) >= user_tokens['expires_at'] - 60:
         user_tokens = token_refresh(user_tokens['refresh_token'])
-        user_tokens = parse_tokens(user_tokens)
+        user_tokens = parse_tokens(user_tokens, user_tokens['refresh_token'])
         threading._start_new_thread(save_tokens, (uid, user_tokens, ))
     users[uid] = user_tokens
     return user_tokens

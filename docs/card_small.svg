@@ -109,7 +109,7 @@
 
         .title {
             color: white;
-            font-family: Intra, sans-serif;
+            font-family: system-ui, sans-serif;
             font-size: 16px;
             font-weight: 700;
             letter-spacing: 0.6px;
@@ -119,7 +119,7 @@
 
         .artist {
             color: white;
-            font-family: Intra, sans-serif;
+            font-family: system-ui, sans-serif;
             font-size: 14px;
             font-weight: 500;
             letter-spacing: 0.4px;
@@ -130,7 +130,7 @@
 
         .subtitle {
             color: white;
-            font-family: Intra, sans-serif;
+            font-family: system-ui, sans-serif;
             font-size: 12px;
             font-weight: 500;
             line-height: 12px;
