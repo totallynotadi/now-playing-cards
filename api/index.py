@@ -225,7 +225,7 @@ def now_playing_endpoint():
     card = card.replace("&", "&amp;")
 
     response = flask.Response(card, mimetype='image/svg+xml')
-    response.headers["Cache-Control"] = "s-maxage=200"
+    response.headers["Cache-Control"] = "s-maxage=1"
     return response
 
 
