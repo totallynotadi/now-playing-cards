@@ -3,6 +3,8 @@ import re
 
 import requests
 
+from ..utils import get_text_len
+
 
 def build_medium_card(track, background_theme, text_theme, output):
     image = str(base64.b64encode(requests.get(
@@ -13,12 +15,10 @@ def build_medium_card(track, background_theme, text_theme, output):
     output = re.sub(r"{{ duration }}", duration, output)
 
     animation = "unset"
-    if len(track['name']) <= 18:
-        font_size = "24"
-    elif len(track['name']) <= 20:
-        font_size = "22"
-    elif len(track['name']) <= 22:
+    if get_text_len(track['name'], 20, 'title') <= 238:
         font_size = "20"
+    elif get_text_len(track['name'], 18, 'title') <= 247:
+        font_size = "18"
     else:
         animation = "text-scroll infinite linear 20s"
         font_size = "20"
@@ -27,33 +27,23 @@ def build_medium_card(track, background_theme, text_theme, output):
     output = re.sub(r"{{ title }}", track['name'], output)
 
     animation = "unset"
+    font_size = "16"
     artists = ' & '.join([artist['name'] for artist in track['artists']])
-    if len(artists) <= 29:
-        font_size = "16"
-    else:
+    if get_text_len(artists, 16, 'artist') >= 246:
         animation = "text-scroll infinite linear 20s"
-        font_size = "12"
     ouptut = re.sub(r"{{ artist_animation }}", animation, output)
     output = re.sub(r"{{ artist_font_size }}", font_size, output)
     output = re.sub(r"{{ artist }}", artists, output)
 
     animation = "unset"
+    font_size = "14"
     album = track['album']
-    if len(album['name']) <= 28:
+    if get_text_len(album['name'], 14, 'subtitle') <= 198:
         subtitle = album['name'] + ' • ' + album['release_date'].split('-')[0]
-        font_size = "14"
-    elif len(album['name']) <= 36:
-        subtitle = album['name']
-        font_size = "14"
-    elif len(album['name']) <= 33:
-        font_size = "12"
-        subtitle = album['name'] + ' • ' + album['release_date'].split('-')[0]
-    elif len(album['name']) <= 40:
-        font_size = "12"
+    elif get_text_len(album['name'], 14, 'subtitle') <= 246:
         subtitle = album['name']
     else:
-        font_size = "12"
-        subtitle = album['name']
+        subtitle = album['name'] + ' • ' + album['release_date'].split('-')[0]
         animation = "text-scroll infinite linear 20s"
     output = re.sub(r"{{ sub_animation }}", animation, output)
     output = re.sub(r"{{ sub_font_size }}", font_size, output)
