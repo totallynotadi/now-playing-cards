@@ -3,7 +3,7 @@ import re
 
 import requests
 
-from ..utils import get_text_len
+from ..utils import build_artist_string, get_text_len
 
 
 def build_medium_card(track, background_theme, text_theme, output):
@@ -28,7 +28,7 @@ def build_medium_card(track, background_theme, text_theme, output):
 
     animation = "unset"
     font_size = "16"
-    artists = ' & '.join([artist['name'] for artist in track['artists']])
+    artists = build_artist_string(*[artist['name'] for artist in track['artists']])
     if get_text_len(artists, 16, 'artist') >= 246:
         animation = "text-scroll infinite linear 20s"
     ouptut = re.sub(r"{{ artist_animation }}", animation, output)

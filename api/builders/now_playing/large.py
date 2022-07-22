@@ -3,7 +3,7 @@ import re
 
 import requests
 
-from ..utils import get_text_len
+from ..utils import get_text_len, build_artist_string
 
 
 def build_large_card(track, background_theme, text_theme, output):
@@ -29,7 +29,7 @@ def build_large_card(track, background_theme, text_theme, output):
     output = re.sub(r"{{ title_font_size }}", font_size, output)
     output = re.sub(r"{{ title }}", title, output)
 
-    artists = ' & '.join([artist['name'] for artist in track['artists']])
+    artists = build_artist_string(*[artist['name'] for artist in track['artists']])
     output = re.sub(r"{{ artist }}", artists, output)
 
     album = track['album']

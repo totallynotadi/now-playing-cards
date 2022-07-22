@@ -4,7 +4,7 @@ import re
 import requests
 
 from ..themes import get_theme
-from ..utils import get_text_len
+from ..utils import build_artist_string, get_text_len
 
 
 def build_small_card(track, background_theme, text_theme, template):
@@ -28,7 +28,7 @@ def build_small_card(track, background_theme, text_theme, template):
     template = re.sub(r"{{ title }}", track['name'], template)
 
     animation = "unset"
-    artists = ' & '.join([artist['name'] for artist in track['artists']])
+    artists = build_artist_string(*[artist['name'] for artist in track['artists']])
     font_size = "14"
     if get_text_len(artists, 14, 'subtitle') > 193:
         animation = "text-scroll infinite linear 16s"
