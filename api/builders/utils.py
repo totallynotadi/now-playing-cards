@@ -1,9 +1,10 @@
+from typing import Literal
 from PIL import ImageFont
 
 
 SIZES = {'title': 'api/builders/fonts/inter-500.ttf', 'artist': 'api/builders/fonts/inter-600.ttf', 'subtitle': 'api/builders/fonts/inter-500.ttf'}
 
-def get_text_len(text, font_size, font_name):
+def get_text_len(text: str, font_size: int, font_name: Literal['title', 'artist', 'subtitle']) -> int:
     font = ImageFont.truetype(SIZES[font_name], font_size)
     size = font.getsize(text)
     return size[0]
