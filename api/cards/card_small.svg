@@ -83,7 +83,7 @@
             color: {{ text_color }};
             /* font-family: url('https://fonts.googleapis.com/css2?family=Inter'); */
             font-size: {{ title_font_size }}px;
-            font-weight: 700;
+            font-weight: 600;
             letter-spacing: 0.4px;
             white-space: nowrap;
             animation: {{ title_animation }}

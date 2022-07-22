@@ -84,7 +84,7 @@
             color: {{ text_color }};
             /* font-family: Intra, sans-serif; */
             font-size: {{ title_font_size }}px;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 0.4px;
             white-space: nowrap;
             animation: {{ title_animation }};
@@ -100,7 +100,7 @@
             white-space: nowrap;
             animation: {{ artist_animation }};
             /* animation: text-scroll infinite linear 20s; */
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
         .subtitle {
