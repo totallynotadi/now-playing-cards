@@ -8,7 +8,7 @@
 
 body {
     background-color: #19212D;
-    font-family: 'Inter';
+    font-family: 'Inter', system-ui, sans-serif;
     color: white;
 }
 
@@ -44,7 +44,7 @@ a {
     background-color: #2A3E5B;
     color: white;
     font-size: 16px;
-    font-family: 'Inter';
+    font-family: 'Inter', system-ui, sans-serif;
     font-weight: 500;
     letter-spacing: 0.1rem;
     line-height: 20px;
@@ -68,7 +68,7 @@ a {
 }
 
 .detail-title {
-    font-family: 'Inter';
+    font-family: 'Inter', system-ui, sans-serif;
     font-weight: 600;
     font-size: 36px;
     letter-spacing: 0.02em;
@@ -76,7 +76,7 @@ a {
 }
 
 .detail-sub {
-    font-family: 'Inter';
+    font-family: 'Inter', system-ui, sans-serif;
     font-weight: 400;
     font-size: 22px;
     letter-spacing: 0.02em;
