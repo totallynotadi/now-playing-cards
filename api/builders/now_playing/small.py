@@ -7,7 +7,7 @@ from ..themes import get_theme
 from ..utils import build_artist_string, get_text_len
 
 
-def build_small_card(track, background_theme, text_theme, template):
+def build_small_card(track, theme, template):
     image = str(base64.b64encode(requests.get(
         track['album']['images'][0]['url']).content))[2: -1]
     template = re.sub(r"{{ image }}", image, template)
@@ -16,9 +16,9 @@ def build_small_card(track, background_theme, text_theme, template):
     template = re.sub(r"{{ duration }}", duration, template)
 
     animation = "unset"
-    if get_text_len(track['name'], 16, 'title') <= 172:
+    if get_text_len(track['name'], 16, 'artist') <= 172:
         font_size = "18"
-    elif get_text_len(track['name'], 16, 'title') <= 193:
+    elif get_text_len(track['name'], 16, 'artist') <= 193:
         font_size = "16"
     else:
         font_size = "16"
@@ -50,9 +50,9 @@ def build_small_card(track, background_theme, text_theme, template):
     template = re.sub(r"{{ sub_animation }}", animation, template)
     template = re.sub(r"{{ subtitle }}", subtitle, template)
 
-    template = re.sub(r"{{ bar_color }}", text_theme.get('bar_color'), template)
-    template = re.sub(r"{{ text_color }}", text_theme.get('text_color'), template, count=4)
+    template = re.sub(r"{{ bar_color }}", theme['text'].get('bar_color'), template)
+    template = re.sub(r"{{ text_color }}", theme['text'].get('text_color'), template, count=4)
 
-    template = re.sub(r"{{ background }}", background_theme, template)
+    template = re.sub(r"{{ background }}", theme['background'], template)
 
     return template

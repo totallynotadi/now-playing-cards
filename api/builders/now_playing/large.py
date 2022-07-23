@@ -6,13 +6,13 @@ import requests
 from ..utils import get_text_len, build_artist_string
 
 
-def build_large_card(track, background_theme, text_theme, output):
+def build_large_card(track, theme, template):
     image = str(base64.b64encode(requests.get(
         track['album']['images'][0]['url']).content))[2: -1]
-    output = re.sub(r"{{ image }}", image, output)
+    template = re.sub(r"{{ image }}", image, template)
 
     duration = str(int(track['duration_ms'] / 1000))
-    output = re.sub(r"{{ duration }}", duration, output)
+    template = re.sub(r"{{ duration }}", duration, template)
 
     animation = "unset"
     font_size = "20"
@@ -25,20 +25,37 @@ def build_large_card(track, background_theme, text_theme, output):
     elif get_text_len(title, 16, 'title') <= 274:
         font_size = "16"
         artist_top_margin = "6"
-    output = re.sub(r"{{ artist_top_margin }}", artist_top_margin, output)
-    output = re.sub(r"{{ title_font_size }}", font_size, output)
-    output = re.sub(r"{{ title }}", title, output)
+        animation = "text-scroll infinite linear 20s"
+    # artist top margin being set here in title section because the top margin depends upon the size of the title
+    template = re.sub(r"{{ title }}", title, template)
+    template = re.sub(r"{{ title_font_size }}", font_size, template)
+    template = re.sub(r"{{ title_animation }}", animation, template)
+    template = re.sub(r"{{ artist_top_margin }}", artist_top_margin, template)
 
-    artists = build_artist_string(*[artist['name'] for artist in track['artists']])
-    output = re.sub(r"{{ artist }}", artists, output)
+    animation = "unset"
+    artists = build_artist_string(*[artist['name']for artist in track['artists']])
+    if get_text_len(artists, 14, 'artist') >= 174:
+        animation = "text-scroll infinite linear 20s"
+    template = re.sub(r"{{ artist_animation }}", animation, template)
+    template = re.sub(r"{{ artist }}", artists, template)
 
+    animation = "unset"
     album = track['album']
-    subtitle = album['name'] + ' • ' + album['release_date'].split('-')[0]
-    output = re.sub(r"{{ subtitle }}", subtitle, output)
+    if get_text_len(album['name'], 14, 'subtitle') <= 228:
+        subtitle = album['name'] + ' • ' + album['release_date'].split('-')[0]
+    elif get_text_len(album, 14, 'subtitle') <= 275:
+        subtitle = album['name']
+    else:
+        subtitle = album['name'] + ' • ' + album['release_date'].split('-')[0]
+        animation = "text-scroll infinite linear 20s"
+    template = re.sub(r"{{ subtitle }}", subtitle, template)
+    template = re.sub(r"{{ subtitle_animation }}", animation, template)
 
-    output = re.sub(r"{{ bar_color }}", text_theme.get('bar_color'), output)
-    output = re.sub(r"{{ text_color }}", text_theme.get('text_color'), output, count=6)
+    template = re.sub(r"{{ bar_color }}",
+                      theme['text'].get('bar_color'), template)
+    template = re.sub(r"{{ text_color }}", theme['text'].get(
+        'text_color'), template, count=6)
 
-    output = re.sub(r"{{ background }}", background_theme, output)
+    template = re.sub(r"{{ background }}", theme['background'], template)
 
-    return output
+    return template

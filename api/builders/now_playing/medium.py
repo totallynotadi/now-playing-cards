@@ -6,13 +6,13 @@ import requests
 from ..utils import build_artist_string, get_text_len
 
 
-def build_medium_card(track, background_theme, text_theme, output):
+def build_medium_card(track, theme, template):
     image = str(base64.b64encode(requests.get(
         track['album']['images'][0]['url']).content))[2: -1]
-    output = re.sub(r"{{ image }}", image, output)
+    template = re.sub(r"{{ image }}", image, template)
 
     duration = str(int(track['duration_ms'] / 1000))
-    output = re.sub(r"{{ duration }}", duration, output)
+    template = re.sub(r"{{ duration }}", duration, template)
 
     animation = "unset"
     if get_text_len(track['name'], 20, 'title') <= 238:
@@ -22,18 +22,18 @@ def build_medium_card(track, background_theme, text_theme, output):
     else:
         animation = "text-scroll infinite linear 20s"
         font_size = "20"
-    output = re.sub(r"{{ title_animation }}", animation, output)
-    output = re.sub(r"{{ title_font_size }}", font_size, output)
-    output = re.sub(r"{{ title }}", track['name'], output)
+    template = re.sub(r"{{ title_animation }}", animation, template)
+    template = re.sub(r"{{ title_font_size }}", font_size, template)
+    template = re.sub(r"{{ title }}", track['name'], template)
 
     animation = "unset"
     font_size = "16"
     artists = build_artist_string(*[artist['name'] for artist in track['artists']])
-    if get_text_len(artists, 16, 'artist') >= 246:
+    if get_text_len(artists, 16, 'artist') >= 242:
         animation = "text-scroll infinite linear 20s"
-    ouptut = re.sub(r"{{ artist_animation }}", animation, output)
-    output = re.sub(r"{{ artist_font_size }}", font_size, output)
-    output = re.sub(r"{{ artist }}", artists, output)
+    template = re.sub(r"{{ artist_animation }}", animation, template)
+    template = re.sub(r"{{ artist_font_size }}", font_size, template)
+    template = re.sub(r"{{ artist }}", artists, template)
 
     animation = "unset"
     font_size = "14"
@@ -45,13 +45,13 @@ def build_medium_card(track, background_theme, text_theme, output):
     else:
         subtitle = album['name'] + ' • ' + album['release_date'].split('-')[0]
         animation = "text-scroll infinite linear 20s"
-    output = re.sub(r"{{ sub_animation }}", animation, output)
-    output = re.sub(r"{{ sub_font_size }}", font_size, output)
-    output = re.sub(r"{{ subtitle }}", subtitle, output)
+    template = re.sub(r"{{ sub_animation }}", animation, template)
+    template = re.sub(r"{{ sub_font_size }}", font_size, template)
+    template = re.sub(r"{{ subtitle }}", subtitle, template)
 
-    output = re.sub(r"{{ bar_color }}", text_theme.get('bar_color'), output)
-    output = re.sub(r"{{ text_color }}", text_theme.get('text_color'), output, count=4)
+    template = re.sub(r"{{ bar_color }}", theme['text'].get('bar_color'), template)
+    template = re.sub(r"{{ text_color }}", theme['text'].get('text_color'), template, count=4)
 
-    output = re.sub(r"{{ background }}", background_theme, output)
+    template = re.sub(r"{{ background }}", theme['background'], template)
 
-    return output
+    return template
