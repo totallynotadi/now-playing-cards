@@ -1,6 +1,5 @@
 import base64
 import json
-import os
 import threading
 import time
 from typing import Dict
@@ -8,16 +7,17 @@ from urllib.parse import quote
 
 import firebase_admin
 import flask
+from numpy import size
 import requests
 from dotenv import find_dotenv, load_dotenv
 from firebase_admin import credentials, firestore
 
 try:
     from . import spotify
-    from .builders import now_playing
+    from .builders import now_playing, utils
 except ImportError:
     import spotify
-    from builders import now_playing
+    from builders import now_playing, utils
 
 
 load_dotenv(find_dotenv())
@@ -133,18 +133,9 @@ def now_playing_endpoint():
         track = spotify.get_recently_played(access_token)
         print(f":::track-keys: {track.keys()}")
 
-    size = params.get('size', 'med')
-    if size not in ['default', 'small', 'med', 'large']:
-        size = 'med'
+    theme, template, size = utils.parse_params(params)
 
-    with open(f'api/cards/card_{size}.svg', 'r', encoding='utf-8') as file:
-        svg_template = str(file.read())
-
-    text_theme = params.get('theme', 'light')
-    background_theme = params.get('background', 'dark')
-
-    card = now_playing.build(
-        track, svg_template, background_theme, text_theme, size)
+    card = now_playing.build(track, theme, template, size)
     card = card.replace("&", "&amp;")
 
     response = flask.Response(card, mimetype='image/svg+xml')

@@ -5,5 +5,13 @@ text_theme_light = {'bar_color': 'rgba(188, 188, 188, 1)', 'text_color': 'white'
 background_dark = 'rgba(53, 71, 99, 1)'
 background_light = 'rgba(229, 229, 229, 1)'
 
+theme_light = {'text': text_theme_dark, 'background': background_light}
+theme_dark = {'text': text_theme_light, 'background': background_dark}
+theme_colorblock = {}
+theme_gradient = {}
+theme_image = {}
+
+THEMES = {'light': theme_light, 'dark': theme_dark, 'colorblock': theme_colorblock, 'image': theme_image}
+
 def get_theme(image):
     pass
