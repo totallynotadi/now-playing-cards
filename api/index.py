@@ -7,7 +7,6 @@ from urllib.parse import quote
 
 import firebase_admin
 import flask
-from numpy import size
 import requests
 from dotenv import find_dotenv, load_dotenv
 from firebase_admin import credentials, firestore
