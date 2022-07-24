@@ -88,9 +88,8 @@ def callback():
         'client_secret': spotify.CLIENT_SECRET,
     }
 
-    post_request = requests.post(spotify.TOKEN_URL, data=code_payload)
-
-    response_data = json.loads(post_request.text)
+    response_data = requests.post(spotify.TOKEN_URL, data=code_payload).json()
+    print(f"::::response data - {response_data}")
 
     tokens = spotify.parse_tokens(response_data)
 
@@ -114,8 +113,8 @@ def now_playing_endpoint():
     params = flask.request.args
 
     # temporary card for testing
-    if params.get('test') == 'true':
-        with open('cards/test-re.svg', 'r', encoding='utf-8') as file:
+    if params.get('test', 'false') == 'true':
+        with open('api/cards/card_small_docs.svg', 'r', encoding='utf-8') as file:
             template = file.read()
         response = flask.Response(template, mimetype='image/svg+xml')
         return response
