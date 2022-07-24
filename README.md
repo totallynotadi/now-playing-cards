@@ -7,6 +7,8 @@ Here's a demo
 ![testing svg rendering in github markdown](https://readme-now-playing.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=large&background=light)
 ![testing svg rendering in github markdown](https://readme-now-playing.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=med&background=light)
 ![spotify-github-profile](https://readme-now-playing.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small&background=dark)
+![spotify-github-profile](https://readme-now-playing.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small&background=dark&test=true)
+
 <!-- ![spotify-github-profile](https://now-playing.15adityagaikwad.repl.co/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small&background=dark) -->
 
 <!-- ![spotify-github-profil](https://now-playing.15adityagaikwad.repl.co/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small) -->

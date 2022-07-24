@@ -79,6 +79,7 @@ def login():
 
 @app.route('/callback/q')
 def callback():
+    print('in callback')
     auth_token = flask.request.args['code']
     code_payload = {
         "grant_type": "authorization_code",
@@ -147,5 +148,5 @@ def get_users():
 
 
 if __name__ == '__main__':
-    # REDIRECT_URL = 'https://localhost:8080/callback/q'
+    REDIRECT_URL = 'https://localhost:5000/callback/q'
     app.run(debug=True, host='localhost', ssl_context='adhoc')
