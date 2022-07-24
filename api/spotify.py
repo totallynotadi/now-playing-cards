@@ -25,6 +25,7 @@ SCOPES = os.getenv('SCOPES')
 
 
 def parse_tokens(data, refresh_token=None):
+    print('::::parsing tokens')
     access_token = data['access_token']
     token_type = data['token_type']
     expires_in = data['expires_in']
@@ -36,6 +37,7 @@ def parse_tokens(data, refresh_token=None):
         'expires_in': expires_in,
         'expires_at': expires_at
     }
+    print('::::finished parsing')
     return tokens
 
 
@@ -62,9 +64,13 @@ def token_refresh(refresh_token: str):
 
 
 def get_user_info(access_token):
+    print(':::getting user info')
     auth_header = {"Authorization": "Bearer {}".format(access_token)}
     user_profile_endpoint = '{}/me'.format(API_URL)
-    data = requests.get(user_profile_endpoint, headers=auth_header).json()
+    data = requests.get(user_profile_endpoint, headers=auth_header)
+    print(f'::::{data.text}')
+    data = data.json()
+    print('::::got user info')
     return data
 
 
