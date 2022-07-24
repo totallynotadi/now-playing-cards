@@ -18,11 +18,13 @@ def build_large_card(track, theme, template):
     font_size = "20"
     artist_top_margin = "8"
     title = track['name']
-    if get_text_len(title, 20, 'title') <= 274:
+    if get_text_len(title, 20, 'title') <= 276:
         font_size = "20"
-    elif get_text_len(title, 18, 'title') <= 271:
+    elif get_text_len(title, 18, 'title') <= 273:
         font_size = "18"
-    elif get_text_len(title, 16, 'title') <= 274:
+    elif get_text_len(title, 16, 'title') <= 278:
+        font_size = "16"
+    else:
         font_size = "16"
         artist_top_margin = "6"
         animation = "text-scroll infinite linear 20s"

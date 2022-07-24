@@ -90,7 +90,7 @@
 
         .title {
             color: {{ text_color }};
-            /* font-family: Intra, sans-serif; */
+            font-family: Inter, system-ui, sans-serif;
             font-size: {{ title_font_size }}px;
             font-weight: 700;
             letter-spacing: 0.4px;
@@ -101,7 +101,7 @@
 
         .artist {
             color: {{ text_color }};
-            /* font-family: Intra, sans-serif; */
+            font-family: Inter, system-ui, sans-serif;
             font-size: 14px;
             font-weight: 600;
             letter-spacing: 0.2px;
@@ -113,7 +113,7 @@
 
         .subtitle {
             color: {{ text_color }};
-            /* font-family: Intra, sans-serif; */
+            font-family: Inter, system-ui, sans-serif;
             font-size: 14px;
             font-weight: 500;
             letter-spacing: 0.2px;
