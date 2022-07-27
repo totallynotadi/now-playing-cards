@@ -1,7 +1,8 @@
 import io
 import math
-from typing import Dict, Literal
+from typing import Dict, Literal, Tuple
 from copy import deepcopy
+import string
 
 import colorgram
 import PIL.Image
@@ -20,7 +21,7 @@ FONT_SIZES = {
 
 def get_text_len(text: str, font_size: int, font_name: Literal['title', 'artist', 'subtitle']) -> int:
     font = ImageFont.truetype(FONT_SIZES[font_name], font_size)
-    size = font.getsize(text)
+    size = font.getsize(str(text))
     return size[0]
 
 
@@ -44,42 +45,42 @@ def is_light(rgb, threshold=170):
 
 
 def rgb_to_hex(rgb):
-    return '%02x%02x%02x' % rgb
+    return '#' + ('%02x%02x%02x' % rgb)
 
 
-def get_image_color(image: Dict) -> str:
-    image = requests.get(image['url']).content
+def get_image_color(image: requests.Response) -> Tuple[str, ...]:
+    image = image.content
     image = PIL.Image.open(io.BytesIO((image)))
-
+    
+    # so that color extraction takes less time.
     small_image = image.resize((size // 4 for size in image.size))
 
     colors = colorgram.extract(small_image, 5)
     color = tuple(colors[0].rgb)
-    # print(color)
 
-    # small_image_colors, pixel_count = extcolors.extract_from_image(
-    #     small_image, tolerance=28, limit=5)
-
-    # for color in small_image_colors:
-    #     color = color[0]
-    #     print(sty.bg(color[0], color[1], color[2]) + "    " + sty.bg.rs)
-    # return rgb_to_hex((small_image_colors[0][0]))
-
-    # print(is_light(color))
-    # print(sty.bg(color[0], color[1], color[2]) + "    " + sty.bg.rs)
-
-    return rgb_to_hex(color)
+    return color
 
 
-def check_color_integer(color_code):
-    print(f':::{color_code}')
-    try:
-        color_int = int(color_code)
-        print(f'::::{str(color_code)}')
+def check_contains_digit(color: str) -> bool:
+    for digit in string.digits:
+        if digit in color:
+            return True
+    return False
+
+def check_contains_char(color: str) -> bool:
+    for char in string.ascii_letters:
+        if char in color:
+            return True
+    return False
+
+def check_color_integer(color_code: str) -> str:
+    if (
+        'rgb' not in color_code and
+        check_contains_digit(color_code) and
+        check_contains_char(color_code)
+    ):
         return '#' + str(color_code)
-    except Exception as e:
-        print(e)
-        return color_code
+    return color_code
 
 
 def parse_params(params):
