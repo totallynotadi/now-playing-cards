@@ -85,7 +85,7 @@
             color: {{ text_color }};
             /* font-family: Intra, sans-serif; */
             font-size: {{ title_font_size }}px;
-            font-weight: 700;
+            font-weight: 600;
             letter-spacing: 0.4px;
             white-space: nowrap;
             animation: {{ title_animation }};
