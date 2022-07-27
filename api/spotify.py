@@ -77,10 +77,11 @@ def get_user_info(access_token):
 def get_now_playing(access_token):
     auth_header = {"Authorization": "Bearer {}".format(access_token)}
     now_playing_endpoint = '{}/me/player/currently-playing'.format(
-        API_URL)
+        API_URL
+    )
 
     data = requests.get(now_playing_endpoint, headers=auth_header)
-    if data.status_code == requests.codes['no_content']:
+    if data.status_code == requests.codes['no_content'] or data.json()['item'] is None:
         track = get_recently_played(access_token)
         return track
     else:
