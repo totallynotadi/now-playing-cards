@@ -7,9 +7,9 @@ background_light = 'rgba(229, 229, 229, 1)'
 
 theme_light = {'text': text_theme_dark, 'background': background_light}
 theme_dark = {'text': text_theme_light, 'background': background_dark}
-theme_colorblock = {}
-theme_gradient = {}
-theme_image = {}
+theme_colorblock = {'text': text_theme_light, 'background': 'extract'}
+theme_gradient = {'text': text_theme_light, 'background': 'gradient'}
+theme_image = {'text': text_theme_light, 'background': 'blur'}
 
 THEMES = {'light': theme_light, 'dark': theme_dark, 'colorblock': theme_colorblock, 'image': theme_image}
 

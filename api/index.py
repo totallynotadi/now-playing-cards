@@ -13,10 +13,10 @@ from firebase_admin import credentials, firestore
 
 try:
     from . import spotify
-    from .builders import now_playing, utils
+    from .builders import now_playing, utils, themes
 except ImportError:
     import spotify
-    from builders import now_playing, utils
+    from builders import now_playing, utils, themes
 
 
 load_dotenv(find_dotenv())
@@ -127,12 +127,25 @@ def now_playing_endpoint():
         return "User Not Found, please login before usage"
 
     track = spotify.get_now_playing(access_token)
+    try:
+        track['image']: requests.Response = requests.get(track['album'].pop('images')[0]['url'])
+    except (TypeError, Exception):
+        print(track)
+        print(track.keys())
     if track is None:
         print(f":::getting recently played tracks")
         track = spotify.get_recently_played(access_token)
         print(f":::track-keys: {track.keys()}")
 
     theme, template, size = utils.parse_params(params)
+    if str(theme['background']) == 'extract':
+        color = utils.get_image_color(track['image'])
+
+        theme['background'] = utils.rgb_to_hex(color)
+        print(theme)
+        if utils.is_light(color):
+            theme['text'] = themes.text_theme_dark
+        else:   theme['text'] = themes.text_theme_light
 
     card = now_playing.build(track, theme, template, size)
     card = card.replace("&", "&amp;")
