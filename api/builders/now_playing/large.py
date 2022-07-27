@@ -7,8 +7,7 @@ from ..utils import get_text_len, build_artist_string
 
 
 def build_large_card(track, theme, template):
-    image = str(base64.b64encode(requests.get(
-        track['album']['images'][0]['url']).content))[2: -1]
+    image = str(base64.b64encode(track['image'].content))[2: -1]
     template = re.sub(r"{{ image }}", image, template)
 
     duration = str(int(track['duration_ms'] / 1000))
@@ -36,7 +35,7 @@ def build_large_card(track, theme, template):
 
     animation = "unset"
     artists = build_artist_string(*[artist['name']for artist in track['artists']])
-    if get_text_len(artists, 14, 'artist') >= 174:
+    if get_text_len(artists, 14, 'artist') >= 278:
         animation = "text-scroll infinite linear 20s"
     template = re.sub(r"{{ artist_animation }}", animation, template)
     template = re.sub(r"{{ artist }}", artists, template)
@@ -45,7 +44,7 @@ def build_large_card(track, theme, template):
     album = track['album']
     if get_text_len(album['name'], 14, 'subtitle') <= 228:
         subtitle = album['name'] + ' • ' + album['release_date'].split('-')[0]
-    elif get_text_len(album, 14, 'subtitle') <= 275:
+    elif get_text_len(album['name'], 14, 'subtitle') <= 275:
         subtitle = album['name']
     else:
         subtitle = album['name'] + ' • ' + album['release_date'].split('-')[0]

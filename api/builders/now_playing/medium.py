@@ -7,8 +7,7 @@ from ..utils import build_artist_string, get_text_len
 
 
 def build_medium_card(track, theme, template):
-    image = str(base64.b64encode(requests.get(
-        track['album']['images'][0]['url']).content))[2: -1]
+    image = str(base64.b64encode(track['image'].content))[2: -1]
     template = re.sub(r"{{ image }}", image, template)
 
     duration = str(int(track['duration_ms'] / 1000))
@@ -40,7 +39,7 @@ def build_medium_card(track, theme, template):
     album = track['album']
     if get_text_len(album['name'], 14, 'subtitle') <= 198:
         subtitle = album['name'] + ' • ' + album['release_date'].split('-')[0]
-    elif get_text_len(album['name'], 14, 'subtitle') <= 246:
+    elif get_text_len(album['name'], 14, 'subtitle') <= 248:
         subtitle = album['name']
     else:
         subtitle = album['name'] + ' • ' + album['release_date'].split('-')[0]

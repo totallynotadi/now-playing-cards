@@ -8,8 +8,7 @@ from ..utils import build_artist_string, get_text_len
 
 
 def build_small_card(track, theme, template):
-    image = str(base64.b64encode(requests.get(
-        track['album']['images'][0]['url']).content))[2: -1]
+    image = str(base64.b64encode(track['image'].content))[2: -1]
     template = re.sub(r"{{ image }}", image, template)
 
     duration = str(int(track['duration_ms'] / 1000))
@@ -30,7 +29,7 @@ def build_small_card(track, theme, template):
     animation = "unset"
     artists = build_artist_string(*[artist['name'] for artist in track['artists']])
     font_size = "14"
-    if get_text_len(artists, 14, 'subtitle') > 193:
+    if get_text_len(artists, 14, 'subtitle') > 194:
         animation = "text-scroll infinite linear 16s"
     template = re.sub(r"{{ artist_font_size }}", font_size, template)
     template = re.sub(r"{{ artist_animation }}", animation, template)
