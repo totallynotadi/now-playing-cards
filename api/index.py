@@ -138,6 +138,7 @@ def now_playing_endpoint():
         print(f":::track-keys: {track.keys()}")
 
     theme, template, size = utils.parse_params(params)
+
     if str(theme['background']) == 'extract':
         color = utils.get_image_color(track['image'])
 

@@ -14,6 +14,12 @@ def build_small_card(track, theme, template):
     duration = str(int(track['duration_ms'] / 1000))
     template = re.sub(r"{{ duration }}", duration, template)
 
+    bar_type = theme['bar'].get('bar_type', 'progress-bar')
+    template = re.sub(r"{{ bar_type }}", bar_type, template)
+
+    bar_data = theme['bar'].get('bar_data', '<div class="meter"></div>')
+    template = re.sub(r"{{ bar_data }}", bar_data, template)
+
     animation = "unset"
     if get_text_len(track['name'], 16, 'artist') <= 172:
         font_size = "18"
@@ -29,7 +35,7 @@ def build_small_card(track, theme, template):
     animation = "unset"
     artists = build_artist_string(*[artist['name'] for artist in track['artists']])
     font_size = "14"
-    if get_text_len(artists, 14, 'subtitle') > 194:
+    if get_text_len(artists, 14, 'subtitle') > 199:
         animation = "text-scroll infinite linear 16s"
     template = re.sub(r"{{ artist_font_size }}", font_size, template)
     template = re.sub(r"{{ artist_animation }}", animation, template)
@@ -50,7 +56,7 @@ def build_small_card(track, theme, template):
     template = re.sub(r"{{ subtitle }}", subtitle, template)
 
     template = re.sub(r"{{ bar_color }}", theme['text'].get('bar_color'), template)
-    template = re.sub(r"{{ text_color }}", theme['text'].get('text_color'), template, count=4)
+    template = re.sub(r"{{ text_color }}", theme['text'].get('text_color'), template, count=5)
 
     template = re.sub(r"{{ background }}", theme['background'], template)
 

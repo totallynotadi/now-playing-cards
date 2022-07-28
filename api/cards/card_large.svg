@@ -30,21 +30,23 @@
             color: white;
         }
 
-        .bar {
+        .progress-bar {
             margin-top: 24px;
-            margin-bottom: 24px;
+            margin-bottom: 22px;
 
             display: flex;
             align-items: center;
-            
-            border-radius:40px;
+
+            border-radius: 40px;
             height: 2px;
+
             background-color: {{ bar_color }};
         }
 
         .meter {
             height: 4px;
-            border-radius:40px;
+            border-radius: 40px;
+
             background-color: {{ text_color }};
 
             animation: progressBar {{ duration }}s linear;
@@ -64,6 +66,7 @@
         .background {
             width: 100%;
             height: 100%;
+
             fill: {{ background }};
             rx: 8px;
             ry: 8px;
@@ -90,34 +93,45 @@
 
         .title {
             color: {{ text_color }};
-            font-family: Inter, system-ui, sans-serif;
+            font-family: Inter,
+            system-ui,
+            sans-serif;
+
             font-size: {{ title_font_size }}px;
             font-weight: 600;
             letter-spacing: 0.4px;
             white-space: nowrap;
+
             animation: {{ title_animation }};
             /* animation: text-scroll infinite linear 20s; */
         }
 
         .artist {
             color: {{ text_color }};
-            font-family: Inter, system-ui, sans-serif;
+            font-family: Inter,
+            system-ui,
+            sans-serif;
             font-size: 14px;
             font-weight: 600;
             letter-spacing: 0.2px;
             white-space: nowrap;
+
             animation: {{ artist_animation }};
+
             /* animation: text-scroll infinite linear 20s; */
             margin-top: {{ artist_top_margin }}px;
         }
 
         .subtitle {
             color: {{ text_color }};
-            font-family: Inter, system-ui, sans-serif;
+            font-family: Inter,
+            system-ui,
+            sans-serif;
             font-size: 14px;
             font-weight: 500;
             letter-spacing: 0.2px;
             white-space: nowrap;
+
             animation: {{ subtitle_animation }};
             /* animation: text-scroll infinite linear 20s; */
             margin-top: 2px;
@@ -127,12 +141,15 @@
             0% {
                 transform: translateX(130%);
             }
+
             33% {
                 transform: translateX(0%);
             }
+
             66% {
                 transform: translateX(0%);
             }
+
             100% {
                 transform: translateX(-130%);
             }
@@ -146,6 +163,125 @@
             gap: 14px;
             margin-bottom: 12px;
         }
+
+        .waves {
+            margin-top: 16px;
+            margin-bottom: 16px;
+            /* margin: 10px 8px 10px 1px; */
+
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            /* gap: 8px; */
+
+            width: 100%;
+            height: 14px;
+        }
+
+        .bar {
+            height: 3px;
+            width: 3px;
+
+            border-radius: 40px;
+            background-color: {{ text_color }};
+
+            animation: wave 0ms -800ms linear infinite alternate;
+        }
+
+        @keyframes wave {
+            0% {
+                height: 3px;
+            }
+
+            100% {
+                height: 14px;
+            }
+        }
+
+        .bar:nth-child(1) {
+            animation-duration: 354ms;
+        }
+
+        .bar:nth-child(2) {
+            animation-duration: 429ms;
+        }
+
+        .bar:nth-child(3) {
+            animation-duration: 377ms;
+        }
+
+        .bar:nth-child(4) {
+            animation-duration: 438ms;
+        }
+
+        .bar:nth-child(5) {
+            animation-duration: 391ms;
+        }
+
+        .bar:nth-child(6) {
+            animation-duration: 487ms;
+        }
+
+        .bar:nth-child(7) {
+            animation-duration: 350ms;
+        }
+
+        .bar:nth-child(8) {
+            animation-duration: 421ms;
+        }
+
+        .bar:nth-child(9) {
+            animation-duration: 377ms;
+        }
+
+        .bar:nth-child(10) {
+            animation-duration: 366ms;
+        }
+
+        .bar:nth-child(11) {
+            animation-duration: 443ms;
+        }
+
+        .bar:nth-child(12) {
+            animation-duration: 370ms;
+        }
+
+        .bar:nth-child(13) {
+            animation-duration: 403ms;
+        }
+
+        .bar:nth-child(14) {
+            animation-duration: 436ms;
+        }
+
+        .bar:nth-child(15) {
+            animation-duration: 363ms;
+        }
+
+        .bar:nth-child(16) {
+            animation-duration: 477ms;
+        }
+
+        .bar:nth-child(17) {
+            animation-duration: 384ms;
+        }
+
+        .bar:nth-child(18) {
+            animation-duration: 373ms;
+        }
+
+        .bar:nth-child(19) {
+            animation-duration: 400ms;
+        }
+
+        .bar:nth-child(20) {
+            animation-duration: 362ms;
+        }
+
+        .bar:nth-child(21) {
+            animation-duration: 494ms;
+        }
     </style>
     <g>
         <rect class="background" />
@@ -153,15 +289,18 @@
             <foreignObject width="300" height="446">
                 <div xmlns="http://www.w3.org/1999/xhtml" class="container">
                     <div class="row">
-                        <div style="color:{{ text_color }};letter-spacing:0.08rem;font-size:12px;">LISTENING NOW ON</div>
-                        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="fill:{{ text_color }};">
+                        <div style="color:{{ text_color }};letter-spacing:0.08rem;font-size:12px;">LISTENING NOW ON
+                        </div>
+                        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                            style="fill:{{ text_color }};">
                             <path
-                                d="M12.0225 0.767321C5.98726 0.345295 0.704022 4.93794 0.281995 10.9732C-0.140031 17.0085 4.45262 22.2917 10.4879 22.7137C16.5231 23.1358 21.8064 18.5431 22.2284 12.5078C22.6504 6.47258 18.0578 1.18935 12.0225 0.767321ZM15.1977 17.5296C14.9965 17.5156 14.903 17.408 14.7089 17.2933C13.2634 16.2816 11.3873 15.6459 9.37559 15.5052C8.26913 15.4279 7.04801 15.5446 6.02806 15.6755C5.82689 15.6614 5.61868 15.7479 5.51809 15.7409C5.11574 15.7128 4.83508 15.3899 4.86321 14.9876C4.89135 14.5852 5.11362 14.2975 5.51597 14.3256C6.84472 14.1153 8.16734 14.0056 9.57557 14.1041C11.8891 14.2659 13.9592 15.0171 15.6995 16.1496C15.8866 16.3649 16.0807 16.4795 16.0526 16.8819C15.8144 17.3706 15.4986 17.5507 15.1977 17.5296ZM16.5002 14.7914C16.299 14.7773 16.1048 14.6627 15.9107 14.548C14.2781 13.322 11.9053 12.5496 9.2909 12.3668C7.98326 12.2753 6.76122 12.392 5.84278 12.53C5.63457 12.6165 5.53398 12.6095 5.33281 12.5954C4.82987 12.5602 4.55533 12.1367 4.58352 11.7334C4.61869 11.2305 4.83394 11.0434 5.35101 10.8765C6.57916 10.6591 7.80823 10.4418 9.51822 10.5614C12.3347 10.7584 14.9007 11.6453 17.0231 13.1078C17.3108 13.3301 17.4909 13.6459 17.4697 13.9486C17.3331 14.4444 17.004 14.8266 16.5002 14.7914ZM18.0329 11.6631C17.8318 11.6491 17.7382 11.5414 17.4435 11.4198C15.5091 10.1726 12.6413 9.26452 9.82484 9.06757C8.41661 8.9691 6.89373 9.06477 5.56407 9.27503C5.3629 9.26096 5.25527 9.35451 4.95351 9.33341C4.34289 9.39271 3.97577 8.86072 4.01791 8.25811C4.06005 7.6555 4.38304 7.37301 4.79236 7.30147C6.43088 7.01081 8.15493 6.92921 9.96551 7.05582C13.0837 7.27386 16.2533 8.20306 18.6775 9.68661C18.9652 9.90888 19.2458 10.2317 19.2107 10.7347C19.0679 11.3312 18.6365 11.7053 18.0329 11.6631Z"/>
+                                d="M12.0225 0.767321C5.98726 0.345295 0.704022 4.93794 0.281995 10.9732C-0.140031 17.0085 4.45262 22.2917 10.4879 22.7137C16.5231 23.1358 21.8064 18.5431 22.2284 12.5078C22.6504 6.47258 18.0578 1.18935 12.0225 0.767321ZM15.1977 17.5296C14.9965 17.5156 14.903 17.408 14.7089 17.2933C13.2634 16.2816 11.3873 15.6459 9.37559 15.5052C8.26913 15.4279 7.04801 15.5446 6.02806 15.6755C5.82689 15.6614 5.61868 15.7479 5.51809 15.7409C5.11574 15.7128 4.83508 15.3899 4.86321 14.9876C4.89135 14.5852 5.11362 14.2975 5.51597 14.3256C6.84472 14.1153 8.16734 14.0056 9.57557 14.1041C11.8891 14.2659 13.9592 15.0171 15.6995 16.1496C15.8866 16.3649 16.0807 16.4795 16.0526 16.8819C15.8144 17.3706 15.4986 17.5507 15.1977 17.5296ZM16.5002 14.7914C16.299 14.7773 16.1048 14.6627 15.9107 14.548C14.2781 13.322 11.9053 12.5496 9.2909 12.3668C7.98326 12.2753 6.76122 12.392 5.84278 12.53C5.63457 12.6165 5.53398 12.6095 5.33281 12.5954C4.82987 12.5602 4.55533 12.1367 4.58352 11.7334C4.61869 11.2305 4.83394 11.0434 5.35101 10.8765C6.57916 10.6591 7.80823 10.4418 9.51822 10.5614C12.3347 10.7584 14.9007 11.6453 17.0231 13.1078C17.3108 13.3301 17.4909 13.6459 17.4697 13.9486C17.3331 14.4444 17.004 14.8266 16.5002 14.7914ZM18.0329 11.6631C17.8318 11.6491 17.7382 11.5414 17.4435 11.4198C15.5091 10.1726 12.6413 9.26452 9.82484 9.06757C8.41661 8.9691 6.89373 9.06477 5.56407 9.27503C5.3629 9.26096 5.25527 9.35451 4.95351 9.33341C4.34289 9.39271 3.97577 8.86072 4.01791 8.25811C4.06005 7.6555 4.38304 7.37301 4.79236 7.30147C6.43088 7.01081 8.15493 6.92921 9.96551 7.05582C13.0837 7.27386 16.2533 8.20306 18.6775 9.68661C18.9652 9.90888 19.2458 10.2317 19.2107 10.7347C19.0679 11.3312 18.6365 11.7053 18.0329 11.6631Z" />
                         </svg>
                     </div>
                     <div><img src="data:image/png;base64, {{ image }}" /></div>
-                    <div class="bar">
-                        <div class="meter"></div>
+                    <div class="{{ bar_type }}">
+                        <!-- <div class="meter"></div> -->
+                        {{ bar_data }}
                     </div>
                     <div class="details-column">
                         <div class="title">

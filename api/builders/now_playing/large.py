@@ -13,6 +13,12 @@ def build_large_card(track, theme, template):
     duration = str(int(track['duration_ms'] / 1000))
     template = re.sub(r"{{ duration }}", duration, template)
 
+    bar_type = theme['bar'].get('bar_type', 'progress-bar')
+    template = re.sub(r"{{ bar_type }}", bar_type, template)
+
+    bar_data = theme['bar'].get('bar_data', '<div class="meter"></div>')
+    template = re.sub(r"{{ bar_data }}", bar_data, template)
+
     animation = "unset"
     font_size = "20"
     artist_top_margin = "8"
@@ -55,7 +61,7 @@ def build_large_card(track, theme, template):
     template = re.sub(r"{{ bar_color }}",
                       theme['text'].get('bar_color'), template)
     template = re.sub(r"{{ text_color }}", theme['text'].get(
-        'text_color'), template, count=6)
+        'text_color'), template, count=7)
 
     template = re.sub(r"{{ background }}", theme['background'], template)
 

@@ -30,7 +30,7 @@
             color: white;
         }
 
-        .bar {
+        .progress-bar {
             margin-top: 24px;
             margin-bottom: 24px;
 
@@ -39,12 +39,14 @@
 
             border-radius: 40px;
             height: 2px;
+
             background-color: {{ bar_color }};
         }
 
         .meter {
             height: 4px;
-            border-radius:40px;
+            border-radius: 40px;
+
             background-color: {{ text_color }};
 
             animation: progressBar {{ duration }}s linear;
@@ -64,6 +66,7 @@
         .background {
             width: 100%;
             height: 100%;
+
             fill: {{ background }};
             rx: 8px;
             ry: 8px;
@@ -83,22 +86,26 @@
 
         .title {
             color: {{ text_color }};
+
             /* font-family: Intra, sans-serif; */
             font-size: {{ title_font_size }}px;
             font-weight: 600;
             letter-spacing: 0.4px;
             white-space: nowrap;
+
             animation: {{ title_animation }};
             /* animation: text-scroll infinite linear 20s; */
         }
 
         .artist {
             color: {{ text_color }};
+
             /* font-family: Intra, sans-serif; */
             font-size: {{ artist_font_size }}px;
             font-weight: 600;
             letter-spacing: 0.2px;
             white-space: nowrap;
+
             animation: {{ artist_animation }};
             /* animation: text-scroll infinite linear 20s; */
             margin-top: 8px;
@@ -106,11 +113,13 @@
 
         .subtitle {
             color: {{ text_color }};
+
             /* font-family: Intra, sans-serif; */
             font-size: {{ sub_font_size }}px;
             font-weight: 500;
             letter-spacing: 0.2px;
             white-space: nowrap;
+
             animation: {{ sub_animation }};
             /* animation: text-scroll infinite linear 20s; */
             margin-top: 4px;
@@ -120,15 +129,137 @@
             0% {
                 transform: translateX(130%);
             }
+
             33% {
                 transform: translateX(0%);
             }
+
             66% {
                 transform: translateX(0%);
             }
+
             100% {
                 transform: translateX(-130%);
             }
+        }
+
+        .waves {
+            margin-top: 16px;
+            margin-bottom: 16px;
+            /* margin: 10px 8px 10px 1px; */
+
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            /* gap: 8px; */
+
+            width: 100%;
+            height: 14px;
+        }
+
+        .bar {
+            height: 3px;
+            width: 3px;
+
+            border-radius: 40px;
+            background-color: {{ text_color }};
+
+            animation: wave 0ms -800ms linear infinite alternate;
+        }
+
+        @keyframes wave {
+            0% {
+                height: 3px;
+            }
+
+            100% {
+                height: 14px;
+            }
+        }
+
+        .bar:nth-child(1) {
+            animation-duration: 354ms;
+        }
+
+        .bar:nth-child(2) {
+            animation-duration: 429ms;
+        }
+
+        .bar:nth-child(3) {
+            animation-duration: 377ms;
+        }
+
+        .bar:nth-child(4) {
+            animation-duration: 438ms;
+        }
+
+        .bar:nth-child(5) {
+            animation-duration: 391ms;
+        }
+
+        .bar:nth-child(6) {
+            animation-duration: 487ms;
+        }
+
+        .bar:nth-child(7) {
+            animation-duration: 350ms;
+        }
+
+        .bar:nth-child(8) {
+            animation-duration: 421ms;
+        }
+
+        .bar:nth-child(9) {
+            animation-duration: 377ms;
+        }
+
+        .bar:nth-child(10) {
+            animation-duration: 366ms;
+        }
+
+        .bar:nth-child(11) {
+            animation-duration: 443ms;
+        }
+
+        .bar:nth-child(12) {
+            animation-duration: 370ms;
+        }
+
+        .bar:nth-child(13) {
+            animation-duration: 403ms;
+        }
+
+        .bar:nth-child(14) {
+            animation-duration: 436ms;
+        }
+
+        .bar:nth-child(15) {
+            animation-duration: 363ms;
+        }
+
+        .bar:nth-child(16) {
+            animation-duration: 477ms;
+        }
+
+        .bar:nth-child(17) {
+            animation-duration: 384ms;
+        }
+
+        .bar:nth-child(18) {
+            animation-duration: 373ms;
+        }
+
+        .bar:nth-child(19) {
+            animation-duration: 400ms;
+        }
+
+        .bar:nth-child(20) {
+            animation-duration: 362ms;
+        }
+
+        .bar:nth-child(21) {
+            animation-duration: 494ms;
         }
     </style>
     <g>
@@ -137,8 +268,9 @@
             <foreignObject width="272" height="396">
                 <div xmlns="http://www.w3.org/1999/xhtml" class="container">
                     <div><img src="data:image/png;base64, {{ image }}" /></div>
-                    <div class="bar">
-                        <div class="meter"></div>
+                    <div class="{{ bar_type }}">
+                        <!-- <div class="meter"></div> -->
+                        {{ bar_data }}
                     </div>
                     <div class="details-column">
                         <div class="title">

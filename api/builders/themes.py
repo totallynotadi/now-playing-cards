@@ -13,5 +13,9 @@ theme_image = {'text': text_theme_light, 'background': 'blur'}
 
 THEMES = {'light': theme_light, 'dark': theme_dark, 'colorblock': theme_colorblock, 'image': theme_image}
 
+bar_progress = {"bar_type": "progress-bar", "bar_data": '<div class="meter"></div>'}
+bar_waves = {"bar_type": "waves", "bar_data": '<div class="bar"></div>\n' * 21}
+BARS = {'progress-bar': bar_progress, 'waves': bar_waves}
+
 def get_theme(image):
     pass

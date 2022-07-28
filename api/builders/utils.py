@@ -37,7 +37,7 @@ def build_artist_string(*args):
     return res
 
 
-def is_light(rgb, threshold=170):
+def is_light(rgb, threshold=164):
     # https://stackoverflow.com/a/58270890
     [r, g, b] = rgb
     hsp = math.sqrt(0.299 * (r * r) + 0.587 * (g * g) + 0.114 * (b * b))
@@ -86,13 +86,17 @@ def check_color_integer(color_code: str) -> str:
 def parse_params(params):
     size = params.get('size', 'med')
     theme = params.get('theme', 'dark')
+    bar = params.get('bar', 'progress-bar')
+
     card_theme = deepcopy(THEMES[theme])
+    bar_theme = deepcopy(BARS[bar])
 
     text_color = params.get('text-color', card_theme['text']['text_color'])
     background_color = params.get('bg-color', card_theme['background'])
 
     card_theme['text']['text_color'] = check_color_integer(text_color)
     card_theme['background'] = check_color_integer(background_color)
+    card_theme['bar'] = bar_theme
 
     if size not in ['default', 'small', 'med', 'large']:
         size = 'med'
