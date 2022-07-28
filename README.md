@@ -4,8 +4,8 @@ cool looking cards for your github readme which showing your currently playing s
 
 Here's a demo
 
-![testing svg rendering in github markdown](https://readme-now-playing.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=large&theme=colorblock)
-![testing svg rendering in github markdown](https://readme-now-playing.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=med&theme=colorblock)
+![spotify-github-profile](https://readme-now-playing.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=large&theme=colorblock&bar=waves)
+![spotify-github-profile](https://readme-now-playing.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=med&theme=colorblock&bar=waves)
 ![spotify-github-profile](https://readme-now-playing.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small&theme=colorblock)
 <!-- ![spotify-github-profile](https://readme-now-playing.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small&background=dark&test=true) -->
 
