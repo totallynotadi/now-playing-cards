@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="300">
     <style>
         svg {
-            font-family: Inter, sans-serif;
+            font-family: Inter, system-ui, sans-serif;
             font-family: Intra;
             font-size: 14px;
             line-height: 21px;
@@ -81,6 +81,8 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+
+            overflow: hidden;
         }
 
         .fader-right {
@@ -92,7 +94,6 @@
 
         .title {
             color: white;
-            font-family: system-ui, sans-serif;
             font-size: 16px;
             font-weight: 700;
             letter-spacing: 0.6px;
@@ -102,10 +103,10 @@
 
         .artist {
             color: white;
-            font-family: system-ui, sans-serif;
             font-size: 14px;
             font-weight: 500;
             letter-spacing: 0.4px;
+            overflow: hidden;
             white-space: nowrap;
             margin-top: 4px;
             /* animation: text-scroll infinite linear 16s; */
@@ -113,7 +114,6 @@
 
         .subtitle {
             color: white;
-            font-family: system-ui, sans-serif;
             font-size: 12px;
             font-weight: 500;
             line-height: 12px;
