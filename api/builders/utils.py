@@ -37,7 +37,7 @@ def build_artist_string(*args):
     return res
 
 
-def is_light(rgb, threshold=164):
+def is_light(rgb, threshold=168):
     # https://stackoverflow.com/a/58270890
     [r, g, b] = rgb
     hsp = math.sqrt(0.299 * (r * r) + 0.587 * (g * g) + 0.114 * (b * b))
