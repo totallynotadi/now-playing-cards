@@ -26,13 +26,13 @@ The cards come in various sizes and styles, which can also be customized by pass
 
 <!-- ### Waves -->
 
-|![spotify-github-profile](https://readme-now-playing.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=large&theme=colorblock&bar=waves)|![spotify-github-profile](https://readme-now-playing.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=med&theme=light&bar=waves)|![spotify-github-profile](https://readme-now-playing.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small&theme=dark&bar=waves)|
+|![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=large&theme=colorblock&bar=waves)|![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=med&theme=light&bar=waves)|![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small&theme=dark&bar=waves)|
 |:---:|:---:|:---:|
 |size: `large`<br />theme: `colorblock`<br />bar: `waves`|size: `med`<br />theme: `light`<br />bar: `waves`|size: `small`<br />theme: `dark`<br />bar: `waves`|
 
 <!-- ### Progress Indicator -->
 
-|![spotify-github-profile](https://readme-now-playing.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=large&theme=light)|![spotify-github-profile](https://readme-now-playing.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=med&theme=dark)|![spotify-github-profile](https://readme-now-playing.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small&theme=colorblock)|
+|![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=large&theme=light)|![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=med&theme=dark)|![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small&theme=colorblock)|
 |:---:|:---:|:---:|
 |size: `large`<br />theme: `light`<br />bar: `progress-bar`|size: `med`<br />theme: `dark`<br />bar: `progress-bar`|size: `small`<br />theme: `colorblock`<br />bar: `progress-bar`|
 
@@ -70,10 +70,9 @@ The cards come in various sizes and styles, which can also be customized by pass
 
 </details>
 
-<!-- ![spotify-github-profile](https://readme-now-playing.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small&background=dark&test=true) -->
-<!-- ![spotify-github-profile](https://now-playing.15adityagaikwad.repl.co/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small&background=dark) -->
-
-<!-- ![spotify-github-profil](https://now-playing.15adityagaikwad.repl.co/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small) -->
+<!-- ![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small&background=dark&test=true) -->
+<!-- ![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small&background=dark) -->
+<!-- ![spotify-github-profil](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small) -->
 <!-- ![testing svg rendering in github markdown](docs/card_small.svg) -->
 
 ## Contribution
