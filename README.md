@@ -4,9 +4,9 @@ Cool looking cards for your github readme which showing your currently playing s
 
 ## How to use
 
-* Login with your spotify account by visting [this link](https://readme-now-playing.vercel.app/)
+* Login with your spotify account by visting [this link](https://now-playing-cards.vercel.app/)
 * Copy the user ID displayed after logging in.
-* Add this URL to your readme file `![](https://readme-now-playing.vercel.app/now-playing/q?uid=YOUR_USER_ID)` \
+* Add this URL to your readme file `![](https://now-playing-cards.vercel.app/now-playing/q?uid=YOUR_USER_ID)` \
   and paste your user ID from the last step instead of `YOUR USER ID`.
 * [OPTIONAL] For more custom styling, refer to the parameters below.
 
@@ -40,7 +40,7 @@ The cards come in various sizes and styles, which can also be customized by pass
 
 <details>
   <summary><b>Landscape cards</b></summary>
-  
+
   The portrait oriented cards tend to occupy a lot of vertical space, so having one of them at the end or in the middle of your profile readme would look kinda wierd.
   so besides not having to left/right align the cards against some other content for space, horizontal cards make much more sense in terms of using the space better.
   This is an example SVG implementation of such layout, will implement the daynamic data fetching soon and then this can be used.
@@ -50,7 +50,7 @@ The cards come in various sizes and styles, which can also be customized by pass
 
 <details>
   <summary><b>Top tracks / artists card</b></summary>
-  
+
   an separate endpoint (`/top`) for cards showing a list of a user's top artist (at `/top/artsits`) or top tracks (`/top/tracks`).
 
   will create a design on figma and an svg implementation of it before setting up dynamic data and the corresponding endpoints.
@@ -58,7 +58,7 @@ The cards come in various sizes and styles, which can also be customized by pass
 
 <details>
   <summary><b>more themes</b></summary>
-  
+
   more themes for card backgrounds besides the ones available now (dark, light and colorblock)
 
 * **gradient**
