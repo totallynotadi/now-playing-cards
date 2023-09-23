@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "readme-now-playing"
+version = "0.2.0"
+description = "good looking cards for your github readme showing your currently playing song on spotify"
+authors = ["poopsicles <87488715+poopsicles@users.noreply.github.com>"]
+license = "GPL-3.0-or-later"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "~3.9"
+Flask = "^2.3.3"
+requests = "^2.31.0"
+firebase-admin = "^6.2.0"
+python-dotenv = "^1.0.0"
+Pillow = "^10.0.1"
+"colorgram.py" = "^1.2.0"
+sty = "^1.0.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
