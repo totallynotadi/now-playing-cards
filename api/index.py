@@ -12,6 +12,7 @@ import requests
 from dotenv import find_dotenv, load_dotenv
 from firebase_admin import credentials, firestore
 
+from hashlib import sha256
 try:
     from . import spotify
     from .builders import now_playing, utils, themes
@@ -23,16 +24,19 @@ except ImportError:
 load_dotenv(find_dotenv())
 
 
-FIREBASE_CREDS = json.loads(base64.b64decode(bytes(os.getenv('FIREBASE_CREDS')[2:-1], encoding='utf-8')))
+# FIREBASE_CREDS = json.loads(base64.b64decode(bytes(os.getenv('FIREBASE_CREDS')[2:-1], encoding='utf-8')))
 
 
 app = flask.Flask(__name__)
 users = {}
 
-creds = credentials.Certificate(FIREBASE_CREDS)
-firebase_admin.initialize_app(creds)
+# creds = credentials.Certificate(FIREBASE_CREDS)
+# firebase_admin.initialize_app(creds)
 
-db = firestore.client().collection('users')
+# db = firestore.client().collection('users')
+
+# generate a random secret
+app.secret_key = "BAD_SECRET"
 
 
 def check_token_expiry(uid, user_tokens):
@@ -64,16 +68,25 @@ def home():
 
 @app.route('/login')
 def login():
-    auth_headers = {
+    # gen. random state stored in browser session to prevent CSRF
+    flask.session['state'] = sha256(os.urandom(1024)).hexdigest()
+
+    # make headers and nav. to spotify auth. page
+    auth_headers: dict[str, str] = {
         "response_type": "code",
         "redirect_uri": spotify.REDIRECT_URL,
         "scope": spotify.SCOPES,
-        "client_id": spotify.CLIENT_ID
+        "client_id": spotify.CLIENT_ID,
+        "state": flask.session['state']
     }
 
-    auth_headers = '&'.join(['{}={}'.format(param, quote(val))
-                            for param, val in auth_headers.items()])
-    auth_url = "{}/?{}".format(spotify.AUTH_URL, auth_headers)
+    auth_params: str = '&'.join(
+        ['{}={}'.format(param, quote(val))
+            for param, val in auth_headers.items()
+        ]) 
+    
+    auth_url: str = "{}/?{}".format(spotify.AUTH_URL, auth_params)
+
     print(auth_url)
     return flask.redirect(auth_url)
 
@@ -81,18 +94,34 @@ def login():
 @app.route('/callback/q')
 def callback():
     print('in callback')
-    auth_token = flask.request.args['code']
-    code_payload = {
+    state = flask.session.get('state')
+    if not state:
+        return "uhm, something isnt right, you sure you got here right?"
+
+    if state != flask.request.args.get('state'):
+        return "oh no i cant verify the uhhh state, mallory might be lurking"
+    
+    error = flask.request.args.get('error')
+    if error:
+        return f"there was an error, it's {error}"
+    
+    flask.session.pop('state')
+
+    auth_token = flask.request.args.get('code')
+    if not auth_token:
+        return "uhm, spotify didn't give us the codes, sorry"
+
+    code_payload: dict[str, str] = {
         "grant_type": "authorization_code",
-        "code": str(auth_token),
+        "code": auth_token,
         "redirect_uri": spotify.REDIRECT_URL,
         'client_id': spotify.CLIENT_ID,
-        'client_secret': spotify.CLIENT_SECRET,
+        # 'client_secret': spotify.CLIENT_SECRET,
     }
 
     response_data = requests.post(spotify.TOKEN_URL, data=code_payload).json()
     print(f"::::response data - {response_data}")
-
+    return "cool"
     tokens = spotify.parse_tokens(response_data)
 
     data = spotify.get_user_info(tokens['access_token'])
@@ -163,5 +192,6 @@ def get_users():
 
 
 if __name__ == '__main__':
-    REDIRECT_URL = 'https://localhost:5000/callback/q'
+    # REDIRECT_URL = 'https://localhost:5000/callback/q'
+
     app.run(debug=True, host='localhost', ssl_context='adhoc')

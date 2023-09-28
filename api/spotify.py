@@ -1,5 +1,6 @@
 import base64
 import os
+import sys
 import time
 
 import requests
@@ -15,13 +16,12 @@ BASE_URL = 'https://api.spotify.com'
 API_VERSION = 'v1'
 API_URL = '{}/{}'.format(BASE_URL, API_VERSION)
 
-CLIENT_ID = os.getenv('CLIENT_ID')
-CLIENT_SECRET = os.getenv('CLIENT_SECRET')
-
-REDIRECT_URL = os.getenv('REDIRECT_URL')
+CLIENT_ID: str = os.getenv('CLIENT_ID') or sys.exit('`CLIENT_ID` environment variable not found, exiting...')
+CLIENT_SECRET: str = os.getenv('CLIENT_SECRET') or sys.exit('`CLIENT_SECRET` environment variable not found, exiting...')
+REDIRECT_URL: str = os.getenv('REDIRECT_URL') or sys.exit('`REDIRECT_URL` environment variable not found, exiting...')
 # REDIRECT_URL = 'https://localhost:5000/callback/q'
 
-SCOPES = os.getenv('SCOPES')
+SCOPES: str = os.getenv('SCOPES') or sys.exit('`SCOPES` environment variable not found, exiting...')
 
 
 def parse_tokens(data, refresh_token=None):

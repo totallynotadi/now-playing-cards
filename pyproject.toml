@@ -2,7 +2,7 @@
 name = "readme-now-playing"
 version = "0.2.0"
 description = "good looking cards for your github readme showing your currently playing song on spotify"
-authors = ["poopsicles <87488715+poopsicles@users.noreply.github.com>"]
+authors = ["Aditya Gaikwad <g.aditya2048@gmail.com>", "fumnanya <87488715+poopsicles@users.noreply.github.com>"]
 license = "GPL-3.0-or-later"
 readme = "README.md"
 
