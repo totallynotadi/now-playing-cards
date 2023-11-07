@@ -21,8 +21,8 @@ FONT_SIZES = {
 
 def get_text_len(text: str, font_size: int, font_name: Literal['title', 'artist', 'subtitle']) -> int:
     font = ImageFont.truetype(FONT_SIZES[font_name], font_size)
-    size = font.getsize(str(text))
-    return size[0]
+    size = font.getlength(str(text))
+    return int(size)
 
 
 def build_artist_string(*args):
