@@ -1,7 +1,7 @@
 try:
-    from .models import Theme
-except ImportError:
     from models import Theme
+except Exception:
+    from .models import Theme
 
 text_color_dark = "rgba(96, 95, 95, 1)"
 text_color_light = "white"

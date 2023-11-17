@@ -4,6 +4,11 @@ import flask
 import requests
 
 try:
+    from models import QueryParams
+    from services.firestore import firestore_utils
+    from services.spotify import spotify_utils
+    from utils import parse_params
+except Exception:
     print(":: in except, importing models")
     from .models import QueryParams
 
@@ -13,11 +18,6 @@ try:
     print(":: imported services")
     from .services.spotify import spotify_utils
     from .utils import parse_params
-except ImportError:
-    from models import QueryParams
-    from services.firestore import firestore_utils
-    from services.spotify import spotify_utils
-    from utils import parse_params
 
 app = flask.Flask(__name__)
 

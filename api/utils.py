@@ -6,11 +6,11 @@ from typing import Dict, List
 import vibrant
 
 try:
-    from . import themes
-    from .models import CardData, QueryParams, Theme
-except ImportError:
     import themes
     from models import CardData, QueryParams, Theme
+except Exception:
+    from . import themes
+    from .models import CardData, QueryParams, Theme
 
 V = vibrant.Vibrant()
 
