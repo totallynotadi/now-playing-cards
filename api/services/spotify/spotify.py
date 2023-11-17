@@ -125,7 +125,7 @@ class SpotifyUtils:
             track = data["item"]
         return track
 
-    def get_recently_played(self, access_token):
+    def get_recently_played(self, access_token: str) -> Dict[str, Any]:
         auth_header = {"Authorization": "Bearer {}".format(access_token)}
         recently_played_endpoint = (
             "{}/me/player/recently-played?&after=1484811043508".format(API_URL)
@@ -133,11 +133,8 @@ class SpotifyUtils:
         data = requests.get(recently_played_endpoint, headers=auth_header).json()
 
         # actual format of data['items'] - dict_keys(['track', 'played_at', 'context'])
-        if len(data["items"]) > 0:
-            track = data["items"][0]["track"]
-            return track
-        else:
-            return None
+        track = data["items"][0]["track"]
+        return track
 
 
 spotify_utils = SpotifyUtils()
