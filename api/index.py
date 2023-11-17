@@ -4,18 +4,20 @@ import flask
 import requests
 
 try:
+    print(":: in except, importing models")
+    from .models import QueryParams
+
+    print(":: imported models, importimg services")
+    from .services.firestore import firestore_utils
+
+    print(":: imported services")
+    from .services.spotify import spotify_utils
+    from .utils import parse_params
+except ImportError:
     from models import QueryParams
     from services.firestore import firestore_utils
     from services.spotify import spotify_utils
     from utils import parse_params
-except ImportError:
-    print(':: in except, importing models')
-    from .models import QueryParams
-    print(":: imported models, importimg services")
-    from .services.firestore import firestore_utils
-    print(":: imported services")
-    from .services.spotify import spotify_utils
-    from .utils import parse_params
 
 app = flask.Flask(__name__)
 
