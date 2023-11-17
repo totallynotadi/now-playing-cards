@@ -65,7 +65,6 @@ def now_playing_endpoint():
 
     track = spotify_utils.get_now_playing(access_token)
     print(":: track - ", type(track))
-    print(spotify_utils.get_recently_played(access_token))
 
     if track is None:
         print("  :: track is None")
