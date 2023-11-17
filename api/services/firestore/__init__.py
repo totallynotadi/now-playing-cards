@@ -1,1 +1,1 @@
-from .firestore import firestore_utils
+from api.services.firestore.firestore import firestore_utils

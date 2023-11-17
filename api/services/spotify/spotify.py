@@ -1,12 +1,12 @@
 import base64
 import os
 import time
-from urllib import response
 from urllib.parse import quote
 
 import requests
 from dotenv import find_dotenv, load_dotenv
-from services.utils import singleton
+
+from api.services.utils import singleton
 
 load_dotenv(find_dotenv())
 

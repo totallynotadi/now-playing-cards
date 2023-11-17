@@ -6,8 +6,9 @@ import time
 import firebase_admin
 from dotenv import find_dotenv, load_dotenv
 from firebase_admin import credentials, firestore
-from services.spotify import spotify_utils
-from services.utils import singleton
+
+from api.services.spotify import spotify_utils
+from api.services.utils import singleton
 
 load_dotenv(find_dotenv())
 
@@ -16,9 +17,7 @@ load_dotenv(find_dotenv())
 class FirestoreUtils:
     def __init__(self) -> None:
         FIREBASE_CREDS = json.loads(
-            base64.b64decode(
-                bytes(os.getenv("FIREBASE_CREDS", "")[2:-1], encoding="utf-8")
-            )
+            base64.b64decode(os.getenv("FIREBASE_CREDS", "")[2:-1])
         )
         creds = credentials.Certificate(FIREBASE_CREDS)
         app = firebase_admin.initialize_app(creds)

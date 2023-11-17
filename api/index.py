@@ -1,16 +1,26 @@
+import base64
+import json
 import os
 from dataclasses import asdict
 
 import flask
 import requests
+from dotenv import find_dotenv, load_dotenv
 
-print(os.getcwd(), os.listdir())
+# print(os.getcwd(), os.listdir())
+
+# load_dotenv(find_dotenv())
+# creds = os.getenv("FIREBASE_CREDS", "")
+# json_data = json.loads((base64.b64decode(creds[2:-1])))
+# print(json_data.keys())
+# exit()
+
 
 try:
-    from .models import QueryParams
-    from .services.firestore import firestore_utils
-    from .services.spotify import spotify_utils
-    from .utils import parse_params
+    from models import QueryParams
+    from services.firestore import firestore_utils
+    from services.spotify import spotify_utils
+    from utils import parse_params
 except ModuleNotFoundError:
     print(":: in except, importing models")
     from api.models import QueryParams

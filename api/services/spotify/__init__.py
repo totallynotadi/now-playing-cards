@@ -1,1 +1,1 @@
-from .spotify import spotify_utils
+from api.services.spotify.spotify import spotify_utils
