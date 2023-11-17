@@ -1,12 +1,18 @@
-import base64
 from dataclasses import asdict
 
 import flask
 import requests
-from models import QueryParams
-from services.firestore import firestore_utils
-from services.spotify import spotify_utils
-from utils import parse_params
+
+try:
+    from models import QueryParams
+    from services.firestore import firestore_utils
+    from services.spotify import spotify_utils
+    from utils import parse_params
+except ImportError:
+    from .models import QueryParams
+    from .services.firestore import firestore_utils
+    from .services.spotify import spotify_utils
+    from .utils import parse_params
 
 app = flask.Flask(__name__)
 

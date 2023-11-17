@@ -3,9 +3,14 @@ import math
 import string
 from typing import Dict, List
 
-import themes
 import vibrant
-from models import CardData, QueryParams, Theme
+
+try:
+    import themes
+    from models import CardData, QueryParams, Theme
+except ImportError:
+    from . import themes
+    from .models import CardData, QueryParams, Theme
 
 V = vibrant.Vibrant()
 

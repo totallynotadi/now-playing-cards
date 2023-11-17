@@ -1,6 +1,7 @@
-from dataclasses import dataclass
-
-from models import Theme
+try:
+    from models import Theme
+except ImportError:
+    from .models import Theme
 
 text_color_dark = "rgba(96, 95, 95, 1)"
 text_color_light = "white"
@@ -18,8 +19,3 @@ THEMES = {
     "extract": Theme(),
     "image": Theme(),
 }
-
-# theme_colorblock = Theme(text_color=text_color_light)
-# {'text': text_theme_light, 'background': 'extract'}
-# theme_gradient = {'text': text_theme_light, 'background': 'gradient'}
-# theme_image = {'text': text_theme_light, 'background': 'blur'}
