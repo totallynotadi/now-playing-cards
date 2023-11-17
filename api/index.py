@@ -13,10 +13,14 @@ except Exception:
     from .models import QueryParams
 
     print(":: imported models, importimg services")
-    from .services.firestore import firestore_utils
+    try:
+        from .services.firestore import firestore_utils
+        from .services.spotify import spotify_utils
+    except Exception:
+        from services.firestore import firestore_utils
+        from services.spotify import spotify_utils
 
-    print(":: imported services")
-    from .services.spotify import spotify_utils
+    print(":: imported services, importing utils")
     from .utils import parse_params
 
 app = flask.Flask(__name__)
