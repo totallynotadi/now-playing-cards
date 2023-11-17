@@ -1,27 +1,26 @@
+import os
 from dataclasses import asdict
 
 import flask
 import requests
 
+print(os.getcwd(), os.listdir())
+
 try:
-    from models import QueryParams
-    from services.firestore import firestore_utils
-    from services.spotify import spotify_utils
-    from utils import parse_params
-except Exception:
-    print(":: in except, importing models")
     from .models import QueryParams
+    from .services.firestore import firestore_utils
+    from .services.spotify import spotify_utils
+    from .utils import parse_params
+except ModuleNotFoundError:
+    print(":: in except, importing models")
+    from api.models import QueryParams
 
     print(":: imported models, importimg services")
-    try:
-        from .services.firestore import firestore_utils
-        from .services.spotify import spotify_utils
-    except Exception:
-        from services.firestore import firestore_utils
-        from services.spotify import spotify_utils
+    from api.services.firestore import firestore_utils
+    from api.services.spotify import spotify_utils
 
     print(":: imported services, importing utils")
-    from .utils import parse_params
+    from api.utils import parse_params
 
 app = flask.Flask(__name__)
 
