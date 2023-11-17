@@ -1,27 +1,14 @@
-import base64
-import json
-import os
 from dataclasses import asdict
 
 import flask
 import requests
-from dotenv import find_dotenv, load_dotenv
-
-# print(os.getcwd(), os.listdir())
-
-# load_dotenv(find_dotenv())
-# creds = os.getenv("FIREBASE_CREDS", "")
-# json_data = json.loads((base64.b64decode(creds[2:-1])))
-# print(json_data.keys())
-# exit()
-
 
 try:
     from models import QueryParams
     from services.firestore import firestore_utils
     from services.spotify import spotify_utils
     from utils import parse_params
-except ModuleNotFoundError:
+except (ModuleNotFoundError, ImportError):
     print(":: in except, importing models")
     from api.models import QueryParams
 
@@ -77,9 +64,13 @@ def now_playing_endpoint():
     print(":: got access token")
 
     track = spotify_utils.get_now_playing(access_token)
+    print(":: track - ", type(track))
+    print(spotify_utils.get_recently_played(access_token))
+
     if track is None:
+        print("  :: track is None")
         track = spotify_utils.get_recently_played(access_token)
-    print(":: got spotify track")
+    print(":: got spotify track", track)
 
     print(":: getting image")
     image = requests.get(track["album"].pop("images")[0]["url"]).content
@@ -87,6 +78,8 @@ def now_playing_endpoint():
     print(":: got image")
 
     card_data = parse_params(query_params, track)
+
+    print(":: card data", card_data.__dict__)
 
     card = flask.render_template(
         "cards/card_%s.svg.j2" % query_params.size,

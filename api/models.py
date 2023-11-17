@@ -6,6 +6,8 @@ from typing import Literal, Union
 class Theme:
     text_color: str = "white"
     background_color: str = "#191414"
+    muted_color: str = "#828282"
+    border: str = "none"
 
 
 @dataclass

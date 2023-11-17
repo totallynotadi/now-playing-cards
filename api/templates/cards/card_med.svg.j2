@@ -39,10 +39,10 @@
 
 
         img {
-            height: fit-content;
+            height: auto;
             border-radius: 0.5rem;
             box-shadow: 0px 4px 20px 4px rgba(0, 0, 0, 0.25);
-            border: 1px solid #202020;
+            border: {{ border }};
         }
 
         .container {
@@ -51,11 +51,11 @@
             height: fit-content;
             max-height: 390px;
 
-            background-color: {{ background_color }};
+            background-color: {{ theme["background_color"] }};
             border-radius: 1rem;
             padding: 1rem;
             gap: 1rem;
-            border: 1px solid #2b2b2b;
+            border: {{ border }};
         }
 
         .column {
@@ -68,7 +68,7 @@
         }
 
         .text {
-            color: {{ text_color }};
+            color: {{ theme["text_color"] }};
             line-height: initial;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -118,7 +118,6 @@
                 <div class="text h2"> {{ artist }} </div>
                 <div class="text h3"> {{ album }} • {{ year }} </div>
             </div>
-        </div>
         </div>
     </foreignObject>
 </svg>

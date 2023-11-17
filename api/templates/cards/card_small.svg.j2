@@ -39,10 +39,10 @@
 
 
         img {
-            height: fit-content;
+            height: auto;
             border-radius: 0.5rem;
             box-shadow: 0px 4px 20px 4px rgba(0, 0, 0, 0.25);
-            border: 1px solid #202020;
+            border: {{ border }};
         }
 
         .container {
@@ -55,8 +55,8 @@
             background-color: {{ theme["background_color"] }} ;
             border-radius: 0.75rem;
             padding: 0.75rem;
-            gap: 0.75rem;
-            border: 1px solid #2b2b2b;
+            gap: 0.6rem;
+            border: {{ border }}; 
         }
 
         .column {
@@ -96,7 +96,7 @@
         }
 
         .h1 {
-            font-size: 18px;
+            font-size: 17px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             line-clamp: 2;

@@ -1,12 +1,16 @@
 import base64
 import os
 import time
+from typing import Any, Dict, Union
 from urllib.parse import quote
 
 import requests
 from dotenv import find_dotenv, load_dotenv
 
-from api.services.utils import singleton
+# try:
+#     from services.utils import singleton
+# except (ModuleNotFoundError, ImportError):
+#     from api.services.utils import singleton
 
 load_dotenv(find_dotenv())
 
@@ -24,7 +28,7 @@ REDIRECT_URL = os.getenv("REDIRECT_URL", "")
 SCOPES = os.getenv("SCOPES", "")
 
 
-@singleton
+# @singleton
 class SpotifyUtils:
     def __init__(self) -> None:
         pass
@@ -103,16 +107,18 @@ class SpotifyUtils:
         print("::::got user info")
         return data
 
-    def get_now_playing(self, access_token):
+    def get_now_playing(self, access_token: str) -> Union[Dict[str, Any], None]:
         auth_header = {"Authorization": "Bearer {}".format(access_token)}
         now_playing_endpoint = "{}/me/player/currently-playing".format(API_URL)
 
         data = requests.get(now_playing_endpoint, headers=auth_header)
-        if (
-            data.status_code == requests.codes["no_content"]
-            or data.json()["item"] is None
-        ):
+        print(":: spotify track data", data)
+        # prints()
+        print(dir(data))
+        if data.status_code == requests.codes["no_content"] or data.text == "":
+            print(":: getting recenty played")
             track = self.get_recently_played(access_token)
+            print(":: recently played - ", track)
             return track
         else:
             data = data.json()
@@ -121,11 +127,17 @@ class SpotifyUtils:
 
     def get_recently_played(self, access_token):
         auth_header = {"Authorization": "Bearer {}".format(access_token)}
-        recently_played_endpoint = "{}/me/player/recently-played".format(API_URL)
+        recently_played_endpoint = (
+            "{}/me/player/recently-played?&after=1484811043508".format(API_URL)
+        )
         data = requests.get(recently_played_endpoint, headers=auth_header).json()
+
         # actual format of data['items'] - dict_keys(['track', 'played_at', 'context'])
-        track = data["items"][0]["track"]
-        return track
+        if len(data["items"]) > 0:
+            track = data["items"][0]["track"]
+            return track
+        else:
+            return None
 
 
 spotify_utils = SpotifyUtils()

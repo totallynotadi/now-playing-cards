@@ -7,8 +7,12 @@ import firebase_admin
 from dotenv import find_dotenv, load_dotenv
 from firebase_admin import credentials, firestore
 
-from api.services.spotify import spotify_utils
-from api.services.utils import singleton
+try:
+    from services.spotify import spotify_utils
+    from services.utils import singleton
+except (ModuleNotFoundError, ImportError):
+    from api.services.spotify import spotify_utils
+    from api.services.utils import singleton
 
 load_dotenv(find_dotenv())
 
