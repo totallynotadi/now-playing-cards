@@ -1,167 +1,84 @@
 import base64
-import json
-import os
-import threading
-import time
-from typing import Dict
-from urllib.parse import quote
+from dataclasses import asdict
 
-import firebase_admin
 import flask
 import requests
-from dotenv import find_dotenv, load_dotenv
-from firebase_admin import credentials, firestore
-
-try:
-    from . import spotify
-    from .builders import now_playing, utils, themes
-except ImportError:
-    import spotify
-    from builders import now_playing, utils, themes
-
-
-load_dotenv(find_dotenv())
-
-
-FIREBASE_CREDS = json.loads(base64.b64decode(bytes(os.getenv('FIREBASE_CREDS')[2:-1], encoding='utf-8')))
-
+from models import QueryParams
+from services.firestore import firestore_utils
+from services.spotify import spotify_utils
+from utils import parse_params
 
 app = flask.Flask(__name__)
-users = {}
-
-creds = credentials.Certificate(FIREBASE_CREDS)
-firebase_admin.initialize_app(creds)
-
-db = firestore.client().collection('users')
 
 
-def check_token_expiry(uid, user_tokens):
-    if int(time.time()) >= user_tokens['expires_at'] - 60:
-        refresh_token = user_tokens['refresh_token']
-        user_tokens = spotify.token_refresh(refresh_token)
-        user_tokens = spotify.parse_tokens(user_tokens, refresh_token)
-        threading._start_new_thread(save_tokens, (uid, user_tokens, ))
-    users[uid] = user_tokens
-    return user_tokens
-
-
-def get_access_token(uid):
-    if uid in users:
-        user_tokens = users[uid]
-    else:
-        user = db.document(uid).get()
-        if not user.exists:
-            return None
-        user_tokens = user.to_dict()
-    user_tokens = check_token_expiry(uid, user_tokens)
-    return user_tokens.get('access_token', None)
-
-
-@app.route('/')
+@app.route("/")
 def home():
-    return flask.render_template('index.html')
+    return flask.render_template("index.html")
 
 
-@app.route('/login')
+@app.route("/login")
 def login():
-    auth_headers = {
-        "response_type": "code",
-        "redirect_uri": spotify.REDIRECT_URL,
-        "scope": spotify.SCOPES,
-        "client_id": spotify.CLIENT_ID
-    }
-
-    auth_headers = '&'.join(['{}={}'.format(param, quote(val))
-                            for param, val in auth_headers.items()])
-    auth_url = "{}/?{}".format(spotify.AUTH_URL, auth_headers)
-    print(auth_url)
-    return flask.redirect(auth_url)
+    return flask.redirect(spotify_utils.get_auth_url())
 
 
-@app.route('/callback/q')
+@app.route("/callback/q")
 def callback():
-    print('in callback')
-    auth_token = flask.request.args['code']
-    code_payload = {
-        "grant_type": "authorization_code",
-        "code": str(auth_token),
-        "redirect_uri": spotify.REDIRECT_URL,
-        'client_id': spotify.CLIENT_ID,
-        'client_secret': spotify.CLIENT_SECRET,
-    }
+    print("in callback")
+    auth_token = str(flask.request.args["code"])
 
-    response_data = requests.post(spotify.TOKEN_URL, data=code_payload).json()
-    print(f"::::response data - {response_data}")
+    user_tokens = spotify_utils.get_user_tokens(auth_token=auth_token)
 
-    tokens = spotify.parse_tokens(response_data)
+    data = spotify_utils.get_user_info(user_tokens["access_token"])
 
-    data = spotify.get_user_info(tokens['access_token'])
+    firestore_utils.save_tokens(data["id"], user_tokens)
 
-    if not data['id'] in users:
-        users[data['id']] = tokens
-
-    save_tokens(data['id'], tokens)
-
-    return flask.render_template('success.html', page_result='Login Successful', user_id=data.get('id'))
+    return flask.render_template(
+        "success.html", page_result="Login Successful", user_id=data.get("id")
+    )
 
 
-def save_tokens(uid, user_tokens):
-    user = db.document(uid)
-    user.set(user_tokens)
-
-
-@app.route('/now-playing/q')
+@app.route("/now-playing/q")
 def now_playing_endpoint():
-    params = flask.request.args
+    params = flask.request.args.to_dict()
+    params["background_color"] = params.pop("bg-color", str())
+    params["text_color"] = params.pop("text-color", str())
 
-    # temporary card for testing
-    if params.get('test', 'false') == 'true':
-        with open('api/cards/card_small_docs.svg', 'r', encoding='utf-8') as file:
-            template = file.read()
-        response = flask.Response(template, mimetype='image/svg+xml')
-        return response
+    # TO-DO - catch intialization error (for when some params are incorrect). use pydantic for validation
+    query_params = QueryParams(**params)  # type: ignore
+    print(":: got query params")
 
-    user_id = params.get('uid')
-
-    access_token = get_access_token(user_id)
+    access_token = firestore_utils.get_access_token(query_params.uid)
     if access_token is None:
         return "User Not Found, please login before usage"
+    print(":: got access token")
 
-    track = spotify.get_now_playing(access_token)
-    try:
-        track['image']: requests.Response = requests.get(track['album'].pop('images')[0]['url'])
-    except (TypeError, Exception):
-        print(track)
-        print(track.keys())
+    track = spotify_utils.get_now_playing(access_token)
     if track is None:
-        print(f":::getting recently played tracks")
-        track = spotify.get_recently_played(access_token)
-        print(f":::track-keys: {track.keys()}")
+        track = spotify_utils.get_recently_played(access_token)
+    print(":: got spotify track")
 
-    theme, template, size = utils.parse_params(params)
+    print(":: getting image")
+    image = requests.get(track["album"].pop("images")[0]["url"]).content
+    track["image"] = image
+    print(":: got image")
 
-    if str(theme['background']) == 'extract':
-        color = utils.get_image_color(track['image'])
+    card_data = parse_params(query_params, track)
 
-        theme['background'] = utils.rgb_to_hex(color)
-        print(theme)
-        if utils.is_light(color):
-            theme['text'] = themes.text_theme_dark
-        else:   theme['text'] = themes.text_theme_light
-
-    card = now_playing.build(track, theme, template, size)
+    card = flask.render_template(
+        "cards/card_%s.svg.j2" % query_params.size,
+        **asdict(card_data),
+    )
     card = card.replace("&", "&amp;")
 
-    response = flask.Response(card, mimetype='image/svg+xml')
+    response = flask.Response(card, mimetype="image/svg+xml")
     response.headers["Cache-Control"] = "s-maxage=1"
     return response
 
 
-@app.route('/users')
-def get_users():
-    return flask.jsonify(users)
+@app.route("/test")
+def test():
+    return flask.render_template("cards/card_small.svg.j2")
 
 
-if __name__ == '__main__':
-    REDIRECT_URL = 'https://localhost:5000/callback/q'
-    app.run(debug=True, host='localhost', ssl_context='adhoc')
+if __name__ == "__main__":
+    app.run(debug=True, host="localhost", ssl_context="adhoc")

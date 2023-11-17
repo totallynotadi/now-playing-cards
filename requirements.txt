@@ -2,6 +2,4 @@ flask
 requests
 firebase_admin
 python-dotenv
-pillow
-colorgram.py
-sty
+vibrant-python

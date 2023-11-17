@@ -13,10 +13,9 @@ Cool looking cards for your github readme which showing your currently playing s
 ## URL Parameters
 
 | Parameters | Description                                                                        | Options                                                                          |
-|:----------:|------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| :--------: | ---------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 |    size    | Size of the cards to be displayed.                                                 | `small`, `med` (default), `large`                                                |
-|    theme   | Color theme of the card displayed.                                                 | `light`, `dark` (default), `colorblock` (extract colors from the song cover art) |
-|     bar    | Type of progress indicator displayed.                                              | `progress-bar` (default), `waves`                                                |
+|   theme    | Color theme of the card displayed.                                                 | `light`, `dark` (default), `colorblock` (extract colors from the song cover art) |
 |  bg-color  | custom **background** color for the card (is ignored if a theme is also specified) | CSS compatible hex string in the format `#RRGGBB` or `#RRGGBBAA`                 |
 | text-color | custom **text** color for the card (also ignored if a theme is specified too)      | CSS compatible hex string in the format `#RRGGBB` or `#RRGGBBAA`                 |
 
@@ -26,22 +25,22 @@ The cards come in various sizes and styles, which can also be customized by pass
 
 <!-- ### Waves -->
 
-|![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=large&theme=colorblock&bar=waves)|![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=med&theme=light&bar=waves)|![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small&theme=dark&bar=waves)|
-|:---:|:---:|:---:|
-|size: `large`<br />theme: `colorblock`<br />bar: `waves`|size: `med`<br />theme: `light`<br />bar: `waves`|size: `small`<br />theme: `dark`<br />bar: `waves`|
+| ![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=large&theme=colorblock&bar=waves) | ![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=med&theme=light&bar=waves) | ![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small&theme=dark&bar=waves) |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
+|                                             size: `large`<br />theme: `colorblock`<br />bar: `waves`                                              |                                             size: `med`<br />theme: `light`<br />bar: `waves`                                              |                                             size: `small`<br />theme: `dark`<br />bar: `waves`                                              |
 
 <!-- ### Progress Indicator -->
 
-|![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=large&theme=light)|![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=med&theme=dark)|![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small&theme=colorblock)|
-|:---:|:---:|:---:|
-|size: `large`<br />theme: `light`<br />bar: `progress-bar`|size: `med`<br />theme: `dark`<br />bar: `progress-bar`|size: `small`<br />theme: `colorblock`<br />bar: `progress-bar`|
+| ![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=large&theme=light) | ![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=med&theme=dark) | ![spotify-github-profile](https://now-playing-cards.vercel.app/now-playing/q?uid=bwygdf3k5na8cdy8ek3ofoteq&size=small&theme=colorblock) |
+| :--------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: |
+|                                     size: `large`<br />theme: `light`<br />bar: `progress-bar`                                     |                                     size: `med`<br />theme: `dark`<br />bar: `progress-bar`                                     |                                     size: `small`<br />theme: `colorblock`<br />bar: `progress-bar`                                     |
 
 ## Roadmap
 
 <details>
   <summary><b>Landscape cards</b></summary>
 
-  The portrait oriented cards tend to occupy a lot of vertical space, so having one of them at the end or in the middle of your profile readme would look kinda wierd.
+  The portrait oriented cards tend to occupy a lot of **vertical** space, so having one of them at the end or in the middle of your profile readme would look kinda wierd.
   so besides not having to left/right align the cards against some other content for space, horizontal cards make much more sense in terms of using the space better.
   This is an example SVG implementation of such layout, will implement the daynamic data fetching soon and then this can be used.
   <br />
