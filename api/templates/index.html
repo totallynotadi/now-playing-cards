@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spotify Readme</title>
+    <title>Now Playing Cards</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 
 <body>
     <div class="column" style="text-align: center;">
-        <img src="{{ url_for('static', filename='assets/cards-0.png') }}" alt="cards" class="cards-image">
+        <img src="{{ url_for('static', filename='assets/images/cards-min.png') }}" alt="cards" class="cards-image">
         <div class="details-wrapper">
             <div class="detail-title">Beautiful cards for your GitHub readme</div>
             <div class="detail-sub">showing your currently playing song from spotify and more.</div>
@@ -19,7 +19,7 @@
                 <div class="login-button">
                     LOGIN TO SPOTIFY
                 </div>
-                <img src="{{ url_for('static', filename='assets/arrow.svg') }}" alt="" height="28px" width="28px">
+                <img src="{{ url_for('static', filename='assets/icons/arrow.svg') }}" alt="" height="28px" width="28px">
             </a>
         </div>
     </div>
