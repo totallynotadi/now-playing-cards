@@ -2,6 +2,8 @@ get py-env or pyenv-win
 
 https://github.com/pyenv-win/pyenv-win
 
+make sure to follow the init procedures
+
 run pyenv install 3.9.13
 
 set virtualenvs.prefer-active-python in poetry to true
