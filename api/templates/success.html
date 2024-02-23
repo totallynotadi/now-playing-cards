@@ -19,11 +19,12 @@
         </div>
         <div class="id-container">
             <div class="id-text">{{ user_id }}</div>
-            <button class="copy-container">
+
+            <button class="copy-container" onclick="copyID()">
                 <!-- <img src="../static/assets/copy.svg" alt="" width="30px" height="30px"> -->
                 <svg width="28px" height="28px" viewBox="0 0 20 22" fill="#5072A6" xmlns="http://www.w3.org/2000/svg">
                     <path
-                        d="M5.23467 0.199997L17.6025 0.199997C18.7362 0.199997 19.6638 1.07824 19.6638 2.15164L19.6638 15.8132H17.6025V2.15164L5.23467 2.15164V0.199997ZM2.14271 4.10329L13.4799 4.10329C14.6136 4.10329 15.5412 4.98153 15.5412 6.05494L15.5412 19.7165C15.5412 20.7899 14.6136 21.6681 13.4799 21.6681L2.14271 21.6681C1.00899 21.6681 0.0814023 20.7899 0.0814023 19.7165L0.0814023 6.05494C0.0814023 4.98153 1.00899 4.10329 2.14271 4.10329ZM2.14271 19.7165L13.4799 19.7165L13.4799 6.05494L2.14271 6.05494L2.14271 19.7165Z"/>
+                        d="M5.23467 0.199997L17.6025 0.199997C18.7362 0.199997 19.6638 1.07824 19.6638 2.15164L19.6638 15.8132H17.6025V2.15164L5.23467 2.15164V0.199997ZM2.14271 4.10329L13.4799 4.10329C14.6136 4.10329 15.5412 4.98153 15.5412 6.05494L15.5412 19.7165C15.5412 20.7899 14.6136 21.6681 13.4799 21.6681L2.14271 21.6681C1.00899 21.6681 0.0814023 20.7899 0.0814023 19.7165L0.0814023 6.05494C0.0814023 4.98153 1.00899 4.10329 2.14271 4.10329ZM2.14271 19.7165L13.4799 19.7165L13.4799 6.05494L2.14271 6.05494L2.14271 19.7165Z" />
                 </svg>
             </button>
         </div>
@@ -40,6 +41,19 @@
             </svg>
         </a>
     </div>
+
+    <script>
+        function copyID() {
+            var tempInput = document.createElement('input');
+            tempInput.style = 'position: absolute; left: -1000px; top: -1000px';
+            tempInput.value = document.getElementsByClassName('id-text')[0].innerText ;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('User ID copied to clipboard');
+        }
+    </script>
 </body>
 
 </html>

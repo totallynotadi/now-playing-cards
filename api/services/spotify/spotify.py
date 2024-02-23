@@ -27,10 +27,11 @@ CLIENT_SECRET = os.getenv("CLIENT_SECRET", "")
 REDIRECT_URL = os.getenv("REDIRECT_URL", "")
 SCOPES = os.getenv("SCOPES", "")
 
-
 # @singleton
 class SpotifyUtils:
     def __init__(self) -> None:
+        if CLIENT_ID == "" or CLIENT_SECRET == "" or REDIRECT_URL == "" or SCOPES == "":
+            raise ValueError("::missing environment variables for Spotify")
         pass
 
     def get_auth_url(self):

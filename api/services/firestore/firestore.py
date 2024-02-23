@@ -20,8 +20,11 @@ load_dotenv(find_dotenv())
 @singleton
 class FirestoreUtils:
     def __init__(self) -> None:
+        if os.getenv("FIREBASE_CREDS", "") == "":
+            raise ValueError("::missing environment variables for Firebase")
+
         FIREBASE_CREDS = json.loads(
-            base64.b64decode(os.getenv("FIREBASE_CREDS", "")[2:-1])
+            base64.b64decode(os.getenv("FIREBASE_CREDS", ""))
         )
         creds = credentials.Certificate(FIREBASE_CREDS)
         app = firebase_admin.initialize_app(creds)
