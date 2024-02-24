@@ -8,11 +8,11 @@
 
 3. Use the following environment variables:
 
-   - FIREBASE_CREDS: Your Firestore Base64 secret
-   - CLIENT_ID: Your Spotify app client ID
-   - CLIENT_SECRET: Your Spotify app client secret
-   - REDIRECT_URL: Make this `https://localhost:5000/callback/q` for now, we'll fix it later
-   - SCOPES: Make this `user-read-playback-state user-read-currently-playing user-read-recently-played user-top-read`
+   - `FIREBASE_CREDS`: Your Firestore Base64 secret
+   - `CLIENT_ID`: Your Spotify app client ID
+   - `CLIENT_SECRET`: Your Spotify app client secret
+   - `REDIRECT_URL`: Make this `https://localhost:5000/callback/q` for now, we'll fix it later
+   - `SCOPES`: Make this `user-read-playback-state user-read-currently-playing user-read-recently-played user-top-read`
 
 3. Click the "Continue to Dashboard" button.
 
