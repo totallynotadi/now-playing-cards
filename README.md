@@ -1,14 +1,18 @@
-# Spotify x Github - Readme Cards
+# Spotify x GitHub - Readme Cards
 
-Cool looking cards for your github readme which showing your currently playing song on spotify.
+Cool looking cards for your [GitHub README](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme) that show your currently playing song on Spotify.
 
-## How to use
+## How to use?
 
-* Login with your spotify account by visting [this link](https://now-playing-cards.vercel.app/)
-* Copy the user ID displayed after logging in.
-* Add this URL to your readme file `![](https://now-playing-cards.vercel.app/now-playing/q?uid=YOUR_USER_ID)` \
-  and paste your user ID from the last step instead of `YOUR USER ID`.
-* [OPTIONAL] For more custom styling, refer to the parameters below.
+Unfortunately, due to Spotify [not allowing quota extensions](https://github.com/totallynotadi/now-playing-cards/issues/3) for the API, running this is a bit more involved than the usual click-and-deploy route...
+
+Refer to [DEPLOYING.md](DEPLOYING.md) for more details.
+
+For local build instructions, you want [BUILDING.md](BUILDING.md).
+
+Use your personal URL like so: `![](https://now-playing-cards.vercel.app/now-playing/q?uid=YOUR_USER_ID)` and paste your user ID from the last step instead of `YOUR USER ID`.
+
+**OPTIONAL:** For more custom styling, refer to the parameters below.
 
 ## URL Parameters
 
@@ -21,7 +25,7 @@ Cool looking cards for your github readme which showing your currently playing s
 
 ## Demos
 
-The cards come in various sizes and styles, which can also be customized by passing the above parameters to the URL. You can mix and matcch many options to your liking and there's more of them coming soon. Here's some examples.
+The cards come in various sizes and styles, which can also be customized by passing the above parameters to the URL. You can mix and match many options to your liking and there's more of them coming soon. Here's some examples.
 
 <!-- ### Waves -->
 
@@ -36,6 +40,17 @@ The cards come in various sizes and styles, which can also be customized by pass
 |                                     size: `large`<br />theme: `light`<br />bar: `progress-bar`                                     |                                     size: `med`<br />theme: `dark`<br />bar: `progress-bar`                                     |                                   size: `small`<br />theme: `colorblock`<br />bar: `progress-bar`                                    |
 
 ## Roadmap
+
+TODO:
+
+- [ ] add landscape cards
+- [ ] make more themes
+- [ ] add endpoints for top artists/tracks
+- [ ] make self-hosting easier, maybe move to Vercel KV store?
+- [ ] bring back progress bars & waves
+- [ ] actually add docs
+- [ ] cache readme pics, they take too long to load
+- [ ] ~~turn on strict typechecking~~ no
 
 <details>
   <summary><b>Landscape cards</b></summary>
