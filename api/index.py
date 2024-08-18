@@ -3,24 +3,13 @@ from dataclasses import asdict
 import flask
 import requests
 
-try:
-    from models import QueryParams
-    from services.firestore import firestore_utils
-    from services.spotify import spotify_utils
-    from utils import parse_params
-except (ModuleNotFoundError, ImportError):
-    print(":: in except, importing models")
-    from api.models import QueryParams
-
-    print(":: imported models, importimg services")
-    from api.services.firestore import firestore_utils
-    from api.services.spotify import spotify_utils
-
-    print(":: imported services, importing utils")
-    from api.utils import parse_params
+from src.services.firestore import FirestoreUtils
+from src.services.spotify import SpotifyUtils
+from src.utils import parse_params
 
 app = flask.Flask(__name__)
-
+spotify_utils = SpotifyUtils()
+firestore_utils = FirestoreUtils()
 
 @app.route("/")
 def home():

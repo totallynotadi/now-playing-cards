@@ -3,16 +3,12 @@ import json
 import os
 import time
 
-import firebase_admin
+import firebase_admin  # type: ignore
 from dotenv import find_dotenv, load_dotenv
 from firebase_admin import credentials, firestore
 
-try:
-    from services.spotify import spotify_utils
-    from services.utils import singleton
-except (ModuleNotFoundError, ImportError):
-    from api.services.spotify import spotify_utils
-    from api.services.utils import singleton
+from ..spotify.spotify import SpotifyUtils
+from ..utils import singleton
 
 load_dotenv(find_dotenv())
 
@@ -20,6 +16,7 @@ load_dotenv(find_dotenv())
 @singleton
 class FirestoreUtils:
     def __init__(self) -> None:
+        self.spotify_utils = SpotifyUtils()
         if os.getenv("FIREBASE_CREDS", "") == "":
             raise ValueError("::missing environment variables for Firebase")
 
@@ -41,7 +38,7 @@ class FirestoreUtils:
     def check_token_expiry(self, uid, user_tokens):
         if int(time.time()) >= user_tokens["expires_at"] - 60:
             refresh_token = user_tokens["refresh_token"]
-            user_tokens = spotify_utils.token_refresh(refresh_token)
+            user_tokens = self.spotify_utils.token_refresh(refresh_token)
             self.save_tokens(uid, user_tokens)
         return user_tokens
 
@@ -52,6 +49,3 @@ class FirestoreUtils:
         user_tokens = self.current_user.to_dict()
         user_tokens = self.check_token_expiry(uid, user_tokens)
         return user_tokens.get("access_token", None)
-
-
-firestore_utils = FirestoreUtils()

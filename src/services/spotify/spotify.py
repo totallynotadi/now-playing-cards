@@ -136,6 +136,3 @@ class SpotifyUtils:
         # actual format of data['items'] - dict_keys(['track', 'played_at', 'context'])
         track = data["items"][0]["track"]
         return track
-
-
-spotify_utils = SpotifyUtils()
