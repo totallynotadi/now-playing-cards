@@ -7,10 +7,7 @@ from urllib.parse import quote
 import requests
 from dotenv import find_dotenv, load_dotenv
 
-# try:
-#     from services.utils import singleton
-# except (ModuleNotFoundError, ImportError):
-#     from api.services.utils import singleton
+from ..utils import singleton
 
 load_dotenv(find_dotenv())
 
@@ -27,7 +24,8 @@ CLIENT_SECRET = os.getenv("CLIENT_SECRET", "")
 REDIRECT_URL = os.getenv("REDIRECT_URL", "")
 SCOPES = os.getenv("SCOPES", "")
 
-# @singleton
+
+@singleton
 class SpotifyUtils:
     def __init__(self) -> None:
         if CLIENT_ID == "" or CLIENT_SECRET == "" or REDIRECT_URL == "" or SCOPES == "":
@@ -43,7 +41,8 @@ class SpotifyUtils:
         }
 
         auth_headers = "&".join(
-            ["{}={}".format(param, quote(val)) for param, val in auth_headers.items()]
+            ["{}={}".format(param, quote(val))
+             for param, val in auth_headers.items()]
         )
         auth_url = "{}/?{}".format(AUTH_URL, auth_headers)
 
@@ -87,8 +86,10 @@ class SpotifyUtils:
             "grant_type": "refresh_token",
         }
 
-        headers = base64.b64encode((CLIENT_ID + ":" + CLIENT_SECRET).encode("ascii"))
-        headers = {"Authorization": "Basic {}".format(headers.decode("ascii"))}
+        auth_header = base64.b64encode(
+            (CLIENT_ID + ":" + CLIENT_SECRET).encode("ascii"))
+        headers = {"Authorization": "Basic {}".format(
+            auth_header.decode("ascii"))}
 
         response = requests.post(
             TOKEN_URL, data=refresh_payload, headers=headers
@@ -114,7 +115,6 @@ class SpotifyUtils:
 
         data = requests.get(now_playing_endpoint, headers=auth_header)
         print(":: spotify track data", data)
-        # prints()
         print(dir(data))
         if data.status_code == requests.codes["no_content"] or data.text == "":
             print(":: getting recenty played")
@@ -122,8 +122,7 @@ class SpotifyUtils:
             print(":: recently played - ", track)
             return track
         else:
-            data = data.json()
-            track = data["item"]
+            track = data.json()["item"]
         return track
 
     def get_recently_played(self, access_token: str) -> Dict[str, Any]:
@@ -131,7 +130,8 @@ class SpotifyUtils:
         recently_played_endpoint = (
             "{}/me/player/recently-played?&after=1484811043508".format(API_URL)
         )
-        data = requests.get(recently_played_endpoint, headers=auth_header).json()
+        data = requests.get(recently_played_endpoint,
+                            headers=auth_header).json()
 
         # actual format of data['items'] - dict_keys(['track', 'played_at', 'context'])
         track = data["items"][0]["track"]

@@ -20,7 +20,7 @@ def home():
 def login():
     return flask.redirect(spotify_utils.get_auth_url())
 
-
+    
 @app.route("/callback/q")
 def callback():
     print("in callback")

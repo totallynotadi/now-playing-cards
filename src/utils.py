@@ -3,14 +3,10 @@ import math
 import string
 from typing import Dict, List
 
-import vibrant
+import vibrant # type: ignore
 
-try:
-    import themes
-    from models import CardData, QueryParams, Theme
-except Exception:
-    from . import themes
-    from .models import CardData, QueryParams, Theme
+from . import themes
+from .models import CardData, QueryParams, Theme
 
 V = vibrant.Vibrant()
 
@@ -76,7 +72,8 @@ def resolve_theme(theme: str, image: bytes) -> Theme:
 
         final_theme.background_color = rgb_to_hex(color)
         final_theme.text_color = (
-            themes.text_color_dark if is_light(color) else themes.text_color_light
+            themes.text_color_dark if is_light(
+                color) else themes.text_color_light
         )
     elif theme == "image":
         ...
