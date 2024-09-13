@@ -1,8 +1,6 @@
 from dataclasses import dataclass
 from typing import Literal, Union
 
-from tests.fireabase_test import FIREBASE_CREDS
-
 
 @dataclass
 class Theme:

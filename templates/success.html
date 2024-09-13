@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Successful</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+
+<body>
+    <div class="column" style="justify-content:center; gap: 50px;">
+        <div class="detail-title" style="font-size:42px;">
+            {{ page_result }}
+        </div>
+        <div class="detail-sub" style="font-size:25px; margin-top: 26px;">
+            here's your Spotify User ID
+        </div>
+        <div class="id-container">
+            <div class="id-text">{{ user_id }}</div>
+
+            <button class="copy-container" onclick="copyID()">
+                <!-- <img src="../static/assets/copy.svg" alt="" width="30px" height="30px"> -->
+                <svg width="28px" height="28px" viewBox="0 0 20 22" fill="#5072A6" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M5.23467 0.199997L17.6025 0.199997C18.7362 0.199997 19.6638 1.07824 19.6638 2.15164L19.6638 15.8132H17.6025V2.15164L5.23467 2.15164V0.199997ZM2.14271 4.10329L13.4799 4.10329C14.6136 4.10329 15.5412 4.98153 15.5412 6.05494L15.5412 19.7165C15.5412 20.7899 14.6136 21.6681 13.4799 21.6681L2.14271 21.6681C1.00899 21.6681 0.0814023 20.7899 0.0814023 19.7165L0.0814023 6.05494C0.0814023 4.98153 1.00899 4.10329 2.14271 4.10329ZM2.14271 19.7165L13.4799 19.7165L13.4799 6.05494L2.14271 6.05494L2.14271 19.7165Z" />
+                </svg>
+            </button>
+        </div>
+        <div class="divider"></div>
+        <div class="details-sub" style="font-size: 26px; line-height: 42px;">
+            use this ID to make requests for obtaining the cards.<br>Check out the docs for usage.
+        </div>
+        <a href="#" class="login-wrapper details-title text-button" style="font-size: 26px; color: #6495DD;">
+            Check Out Docs
+            <svg width="28" height="28" viewBox="0 0 22 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M16.855 0.721375L15.8882 1.68811L18.874 4.68073H0.5V6.05198H18.874L15.62 9.31186L16.5867 10.2786L21.5 5.36636L16.855 0.721375Z"
+                    fill="#6495DD" />
+            </svg>
+        </a>
+    </div>
+
+    <script>
+        function copyID() {
+            var tempInput = document.createElement('input');
+            tempInput.style = 'position: absolute; left: -1000px; top: -1000px';
+            tempInput.value = document.getElementsByClassName('id-text')[0].innerText ;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('User ID copied to clipboard');
+        }
+    </script>
+</body>
+
+</html>

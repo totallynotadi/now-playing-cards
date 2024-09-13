@@ -21,9 +21,6 @@ class FirestoreUtils:
         if os.getenv("FIREBASE_CREDS", "") == "":
             raise ValueError("::missing environment variables for Firebase")
 
-        firebase_creds = os.getenv("FIREBASE_CREDS", "")
-        print(f':: FIREBASE CREDS - {firebase_creds}')
-        print(":: BYTES_JSON - ", base64.b64decode(firebase_creds))
         FIREBASE_CREDS = json.loads(
             base64.b64decode(
                 bytes(os.getenv("FIREBASE_CREDS", ""), encoding="utf-8"))

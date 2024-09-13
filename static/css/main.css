@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap');
+:root {
+    --vertical: 44px;
+    --horizontal: 24px;
+}
+
+body {
+    background-color: #19212D;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+}
+
+.column {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+}
+
+.cards-image {
+    width: 54%;
+    min-width: 340px;
+    min-height: 100px;
+}
+
+.login-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.login-button {
+    height: 20px;
+    background-color: #2A3E5B;
+    color: white;
+    font-size: 16px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+    line-height: 20px;
+    padding: var(--horizontal) var(--vertical) var(--horizontal) var(--vertical);
+    border-radius: 40px;
+    transition: all 0.25s ease;
+}
+
+.login-button:hover {
+    transform: scale(1.025);
+    background-color: cadetblue;
+    color: #19212D;
+}
+
+.details-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+}
+
+.detail-title {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 36px;
+    letter-spacing: 0.02em;
+    color: white;
+}
+
+.detail-sub {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    letter-spacing: 0.02em;
+    color: white;
+}
+
+.id-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    height: 80px;
+    width: 40%;
+    min-width: 500px;
+    background-color: #2A3E5B;
+    border-radius: 40px;
+}
+
+.id-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    line-height: 20px;
+    color: #C4C4C4;
+    letter-spacing: 0.1em;
+    font-size: 26px;
+    font-weight: 500;
+}
+
+.copy-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 140px;
+    border: none;
+    outline: none;
+    border-radius: 0px 40px 40px 0px;
+    background-color: #1E365A;
+    transition: all 0.1s linear;
+}
+
+.copy-container:hover {
+    transform: scale(1.025);
+    background-color: #192e4e;
+}
+
+.text-button {
+    transition: all 0.25s linear;
+}
+
+.text-button:hover {
+    transform: scale(1.025);
+}
+
+.divider {
+    width: 58%;
+    height: 0px;
+    margin: 40px auto;
+    border: 0.2px solid #5178B1;
+}
