@@ -1,3 +1,4 @@
+import os
 from dataclasses import asdict
 
 import flask
@@ -11,16 +12,17 @@ app = flask.Flask(__name__)
 spotify_utils = SpotifyUtils()
 firestore_utils = FirestoreUtils()
 
+
 @app.route("/")
 def home():
-    return flask.render_template("index.html")
+    return flask.render_template('index.html')
 
 
 @app.route("/login")
 def login():
     return flask.redirect(spotify_utils.get_auth_url())
 
-    
+
 @app.route("/callback/q")
 def callback():
     print("in callback")
