@@ -7,6 +7,7 @@ import requests
 from src.services.firestore import FirestoreUtils
 from src.services.spotify import SpotifyUtils
 from src.utils import parse_params
+from src.models import QueryParams
 
 app = flask.Flask(__name__)
 spotify_utils = SpotifyUtils()
